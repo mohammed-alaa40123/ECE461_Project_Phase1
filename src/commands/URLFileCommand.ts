@@ -12,9 +12,13 @@ export class URLFileCommand {
       }
 
       const urls = data.split('\n').filter(url => url.trim() !== '');
-
-      for (const url of urls) {
+    
+      for (let url of urls) {
         if (url.includes('github.com')) {
+          if (url.includes('%0D')) {
+            url = url.replace('%0D', '');  // Remove the invalid character
+          }
+    
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split('github.com/')[1].split('/');
           const githubRepo = new Git_Hub(repo, owner);
