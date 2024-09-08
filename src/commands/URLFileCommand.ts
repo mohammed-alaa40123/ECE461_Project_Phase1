@@ -11,13 +11,11 @@ export class URLFileCommand {
         return;
       }
 
-      const urls = data.split('\n').filter(url => url.trim() !== '');
+      const urls = data.split('\n').map(url => url.trim()).filter(url => url !== '');
     
       for (let url of urls) {
         if (url.includes('github.com')) {
-          if (url.includes('%0D')) {
-            url = url.replace('%0D', '');  // Remove the invalid character
-          }
+
     
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split('github.com/')[1].split('/');
