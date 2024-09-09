@@ -1,0 +1,5 @@
+2024-09-09T00:00:53.152Z [startup]: Starting dependency installation
+2024-09-09T00:00:54.549Z [info]: Successfully installed typescript
+2024-09-09T00:00:55.755Z [info]: Successfully installed jest
+2024-09-09T00:00:57.032Z [info]: Successfully installed chalk
+2024-09-09T00:00:58.429Z [info]: Successfully installed commander
