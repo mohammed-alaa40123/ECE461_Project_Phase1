@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import { exec } from 'child_process';
-import logger from '../logger.js';
+import logger from '../logger.ts';
 
 export class InstallCommand {
-  private static installDependency(dep: string): Promise<void> {
+  public static installDependency(dep: string): Promise<void> {
     return new Promise((resolve, reject) => {
       exec(`npm install ${dep}`, (err, stdout, stderr) => {
         if (err) {

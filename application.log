@@ -1,10 +1,6 @@
-2024-09-09T00:00:53.152Z [startup]: Starting dependency installation
-2024-09-09T00:00:54.549Z [info]: Successfully installed typescript
-2024-09-09T00:00:55.755Z [info]: Successfully installed jest
-2024-09-09T00:00:57.032Z [info]: Successfully installed chalk
-2024-09-09T00:00:58.429Z [info]: Successfully installed commander
-2024-09-09T00:27:49.442Z [startup]: Starting dependency installation
-2024-09-09T00:27:54.201Z [info]: Successfully installed typescript
-2024-09-09T00:27:59.289Z [info]: Successfully installed jest
-2024-09-09T00:28:02.902Z [info]: Successfully installed chalk
-2024-09-09T00:28:06.605Z [info]: Successfully installed commander
+2024-09-12T18:59:33.212Z [startup]: Starting dependency installation
+2024-09-12T18:59:39.589Z [info]: Successfully installed typescript
+2024-09-12T18:59:47.266Z [info]: Successfully installed jest
+2024-09-12T18:59:51.230Z [info]: Successfully installed chalk
+2024-09-12T18:59:55.052Z [info]: Successfully installed commander
+2024-09-12T19:06:48.944Z [info]: Successfully installed lodash

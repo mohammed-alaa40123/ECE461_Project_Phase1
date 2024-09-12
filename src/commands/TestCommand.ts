@@ -1,32 +1,15 @@
 import * as fs from 'fs';
 import { exec } from 'child_process';
+import logger from '../logger.js';
 
 export class TestCommand {
-  public static run(url: string): void {
+  public static run(): void {
     console.log('Running tests...');
-    this.cloneRepository(url, (cloneError) => {
-      if (cloneError) {
-        console.error('Error cloning repository:', cloneError);
+    this.runTests((testError) => {
+      if(testError) {
+        console.error('Error running tests:', testError);
         return; 
       }
-      this.runTests((testError) => {
-        if(testError) {
-          console.error('Error running tests:', testError);
-          return; 
-        }
-      });
-    });
-  }
-
-  private static cloneRepository(url: string, callback: (error: string | null) => void): void {
-    const repoName = url.split('/').pop()?.replace('.git', '');
-    exec(`git clone ${url}`, (error, stdout, stderr) => {
-      if (error) {
-        return callback(`Error cloning repository: ${stderr}`);
-      }
-      console.log(`Repository cloned: ${stdout}`);
-      process.chdir(repoName || '');
-      callback(null);
     });
   }
 
