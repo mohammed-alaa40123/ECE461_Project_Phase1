@@ -1,36 +1,42 @@
-import { Octokit } from "@octokit/core";
+import { graphql } from "@octokit/graphql";
+import fetch from "node-fetch";
+
 import * as dotenv from "dotenv";
-import axios from 'axios';
-const NPM_REGISTRY_URL = 'https://registry.npmjs.org/-/v1/search?text=$';
 dotenv.config();
 const env: NodeJS.ProcessEnv = process.env;
 
-export abstract class API{
+
+
+
+abstract class API {
   protected package_name: string;
-  constructor(name: string){
-    this.package_name=name;
+  constructor(name: string) {
+    this.package_name = name;
   }
-  public abstract getData(request_string:string):any
+  public abstract getData(request_string: string): Promise<any>;
 }
 
-export class Git_Hub extends API{
+export class Git_Hub extends API {
   private owner_name: string;
-  constructor(p_name:string ,own_name:string){
+  constructor(p_name: string, own_name: string) {
     super(p_name);
-    this.owner_name=own_name;
+    this.owner_name = own_name;
   }
-  public async  getData(request_string:string):Promise<void|JSON>{
-    const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
+
+  public async getData(request_string: string): Promise<any> {
+    const graphqlWithAuth = graphql.defaults({
+      headers: {
+        authorization: `Bearer ${env.GITHUB_TOKEN}`,
+      },
+    });
+
     try {
-      const response = await octokit.request(request_string, {
+      const response = await graphqlWithAuth(request_string, {
         owner: this.owner_name,
         repo: this.package_name,
-        headers: {
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
       });
-      console.log("Package info fetched successfully");
-      return response.data as unknown as JSON;
+      // console.log("Package info fetched successfully");
+      return response;
     } catch (error) {
       console.error("Error fetching package info:", error);
       throw error;
@@ -38,52 +44,43 @@ export class Git_Hub extends API{
   }
 }
 
-export class NPM extends API{
-
-  constructor(p_name:string ){
+export class NPM extends API {
+  constructor(p_name: string) {
     super(p_name);
-
   }
-  public async  getData():Promise<void|JSON>{
+
+  public async getData(request_string: string): Promise<any> {
+    const url = `https://registry.npmjs.org/${this.package_name}`;
     try {
-      const response = await axios.get(`${NPM_REGISTRY_URL}/${this.package_name}`);
-      console.log("Package info fetched successfully");
-      return response.data as unknown as JSON;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(`Error fetching package info: ${error.message}`);
-      } else {
-        console.error('Unexpected error:', error);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Error fetching package info: ${response.statusText}`);
       }
+      const data = await response.json();
+      console.log("Package info fetched successfully");
+      return data;
+    } catch (error) {
+      console.error("Error fetching package info:", error);
+      throw error;
     }
-}}
-/*export default async function fetchPackageInfo(
-  owner: string,
-  repo: string
-): Promise<void | JSON> {
-  const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
-  try {
-    const response = await octokit.request("GET /repos/{owner}/{repo}", {
-      owner: owner,
-      repo: repo,
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    });
-    console.log("Package info fetched successfully");
-    return response.data as unknown as JSON;
-  } catch (error) {
-    console.error("Error fetching package info:", error);
-    throw error;
   }
-}*/
-// src/index.ts
+}
 
+// Example usage
+// const github = new Git_Hub("Hello-World", "octocat");
+// const npm = new NPM("express");
 
+// github.getData(`
+//   query($owner: String!, $repo: String!) {
+//     repository(owner: $owner, name: $repo) {
+//       licenseInfo {
+//         name
+//         spdxId
+//       }
+//     }
+//   }
+// `).then(result => console.log(result)).catch(error => console.error(error));
 
+// npm.getData("").then(result => console.log(result)).catch(error => console.error(error));
 
-
-
-// Replace 'express' with the npm package you want to fetch information about
-//fetchPackageInfo_npm('express');
-
+export default { Git_Hub, NPM };

@@ -29,8 +29,9 @@ export class URLFileCommand {
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split('github.com/')[1].split('/');
           const githubRepo = new Git_Hub(repo, owner);
-          const data = await githubRepo.getData("GET /repos/{owner}/{repo}");
+          // const data = await githubRepo.getData("GET /repos/{owner}/{repo}");
           // console.log("GitHub Data:", data);
+          
           calculateCorrectness(owner, repo).catch(console.error);
           checkLicenseCompatibility(owner, repo).catch(console.error);
 

@@ -7,16 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { graphql } from "@octokit/graphql";
+import { Git_Hub } from '../api.js';
 import * as dotenv from "dotenv";
 dotenv.config();
-const env = process.env;
-const GITHUB_TOKEN = env.GITHUB_TOKEN;
-const graphqlWithAuth = graphql.defaults({
-    headers: {
-        authorization: `Bearer ${GITHUB_TOKEN}`,
-    },
-});
 const compatibilityTable = {
     "LGPL-2.1": 1,
     "MIT": 1,
@@ -53,6 +46,7 @@ const compatibilityTable = {
 };
 function fetchLicenseInfo(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
+        const githubRepo = new Git_Hub(repo, owner);
         const query = `
     query LicenseQuery($owner: String!, $repo: String!) {
       repository(owner: $owner, name: $repo) {
@@ -63,15 +57,12 @@ function fetchLicenseInfo(owner, repo) {
       }
     }
   `;
-        const result = yield graphqlWithAuth(query, {
-            owner,
-            repo,
-        });
+        const result = yield githubRepo.getData(query);
         return result;
     });
 }
 function rateLicense(licenseSpdxId) {
-    return compatibilityTable[licenseSpdxId] || -1;
+    return compatibilityTable[licenseSpdxId] || 0;
 }
 function checkLicenseCompatibility(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -81,9 +72,9 @@ function checkLicenseCompatibility(owner, repo) {
             console.log("No license information found for this repository.");
             return;
         }
-        const licenseSpdxId = licenseData.repository.licenseInfo.spdxId;
-        const compatibility = rateLicense(licenseSpdxId);
-        console.log(`Compatibility with LGPL v2.1: ${compatibility}`);
+        const licenseSpdxId = licenseInfo.spdxId;
+        const compatibilityScore = rateLicense(licenseSpdxId);
+        console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
     });
 }
 export default checkLicenseCompatibility;

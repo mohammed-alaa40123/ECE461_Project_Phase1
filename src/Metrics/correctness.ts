@@ -1,34 +1,9 @@
-import { graphql } from "@octokit/graphql";
-import * as dotenv from "dotenv";
-dotenv.config();
-const env: NodeJS.ProcessEnv = process.env;
+import { Git_Hub } from '../api.js';
 
-const GITHUB_TOKEN = env.GITHUB_TOKEN; // Replace with your GitHub token
-
-
-const graphqlWithAuth = graphql.defaults({
-  headers: {
-    authorization: `Bearer ${GITHUB_TOKEN}`,
-  },
-});
-
-interface IssueData {
-  repository: {
-    issues: {
-      totalCount: number;
-    };
-    closedIssues: {
-      totalCount: number;
-    };
-    bugIssues: {
-      totalCount: number;
-    };
-  };
-}
-
-async function fetchIssues(owner: string, repo: string): Promise<IssueData> {
+async function fetchIssues(owner: string, repo: string): Promise<any> {
+  const githubRepo = new Git_Hub(repo, owner);
   const query = `
-    query IssuesQuery($owner: String!, $repo: String!) {
+    query($owner: String!, $repo: String!) {
       repository(owner: $owner, name: $repo) { 
         issues {
           totalCount
@@ -43,15 +18,12 @@ async function fetchIssues(owner: string, repo: string): Promise<IssueData> {
     }
   `;
 
-  const result: IssueData = await graphqlWithAuth(query, {
-    owner,
-    repo,
-  });
-
+  const result = await githubRepo.getData(query);
   return result;
 }
 
 async function calculateLOC(owner: string, repo: string): Promise<number> {
+  const githubRepo = new Git_Hub(repo, owner);
   const query = `{
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "HEAD:") {
@@ -81,7 +53,7 @@ async function calculateLOC(owner: string, repo: string): Promise<number> {
     }
   }`;
 
-  const result:any = await graphqlWithAuth(query, { owner, repo });
+  const result = await githubRepo.getData(query);
 
   let totalLines = 0;
   function countLines(text: string) {
@@ -89,17 +61,22 @@ async function calculateLOC(owner: string, repo: string): Promise<number> {
   }
 
   function traverseTree(entries: any) {
-    if(!entries)   return;
+    if (!entries) return;
     entries.forEach((entry: any) => {
-      if (entry.type === "blob" && entry.object.text) {
+      if (entry.type === "blob" && entry.object && entry.object.text) {
         totalLines += countLines(entry.object.text);
-      } else if (entry.type === "tree") {
+      } else if (entry.type === "tree" && entry.object && entry.object.entries) {
         traverseTree(entry.object.entries); // Recursively traverse subdirectories
       }
     });
   }
 
-  traverseTree(result.repository.object.entries);
+  if (result.repository.object && result.repository.object.entries) {
+    traverseTree(result.repository.object.entries);
+  } else {
+    console.error("No entries found in the repository object.");
+  }
+
   return totalLines;
 }
 
@@ -111,15 +88,19 @@ async function calculateCorrectness(owner: string, repo: string) {
   const resolvedIssues = issuesData.repository.closedIssues.totalCount;
   const totalBugs = issuesData.repository.bugIssues.totalCount;
 
-  const correctness = (
-    (resolvedIssues / totalIssues) +
-    (totalBugs / totalLinesOfCode)
-  ) / 2;
+  const resolvedIssuesRatio = totalIssues > 0 ? resolvedIssues / totalIssues : 1;
+  const normalizedBugRatio = totalLinesOfCode > 0 ? totalBugs / totalLinesOfCode : 0;
 
-//   console.log(`Total Issues: ${totalIssues}`);
-//   console.log(`Resolved Issues: ${resolvedIssues}`);
-//   console.log(`Total Bugs: ${totalBugs}`);
-//   console.log(`Total Lines of Code: ${totalLinesOfCode}`);
+  // Adjust weights as needed
+  const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
+
+  // console.log(`Total Issues: ${totalIssues}`);
+  // console.log(`Resolved Issues: ${resolvedIssues}`);
+  // console.log(`Total Bugs: ${totalBugs}`);
+  // console.log(`Total Lines of Code: ${totalLinesOfCode}`);
   console.log(`Correctness: ${correctness}`);
 }
+
+// calculateCorrectness("octocat", "Hello-World").catch(console.error);
+
 export default calculateCorrectness;

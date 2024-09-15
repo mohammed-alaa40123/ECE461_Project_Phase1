@@ -7,13 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Octokit } from "@octokit/core";
+import { graphql } from "@octokit/graphql";
+import fetch from "node-fetch";
 import * as dotenv from "dotenv";
-import axios from 'axios';
-const NPM_REGISTRY_URL = 'https://registry.npmjs.org/-/v1/search?text=$';
 dotenv.config();
 const env = process.env;
-export class API {
+class API {
     constructor(name) {
         this.package_name = name;
     }
@@ -25,17 +24,17 @@ export class Git_Hub extends API {
     }
     getData(request_string) {
         return __awaiter(this, void 0, void 0, function* () {
-            const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
+            const graphqlWithAuth = graphql.defaults({
+                headers: {
+                    authorization: `Bearer ${env.GITHUB_TOKEN}`,
+                },
+            });
             try {
-                const response = yield octokit.request(request_string, {
+                const response = yield graphqlWithAuth(request_string, {
                     owner: this.owner_name,
                     repo: this.package_name,
-                    headers: {
-                        "X-GitHub-Api-Version": "2022-11-28",
-                    },
                 });
-                console.log("Package info fetched successfully");
-                return response.data;
+                return response;
             }
             catch (error) {
                 console.error("Error fetching package info:", error);
@@ -48,21 +47,23 @@ export class NPM extends API {
     constructor(p_name) {
         super(p_name);
     }
-    getData() {
+    getData(request_string) {
         return __awaiter(this, void 0, void 0, function* () {
+            const url = `https://registry.npmjs.org/${this.package_name}`;
             try {
-                const response = yield axios.get(`${NPM_REGISTRY_URL}/${this.package_name}`);
+                const response = yield fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Error fetching package info: ${response.statusText}`);
+                }
+                const data = yield response.json();
                 console.log("Package info fetched successfully");
-                return response.data;
+                return data;
             }
             catch (error) {
-                if (axios.isAxiosError(error)) {
-                    console.error(`Error fetching package info: ${error.message}`);
-                }
-                else {
-                    console.error('Unexpected error:', error);
-                }
+                console.error("Error fetching package info:", error);
+                throw error;
             }
         });
     }
 }
+export default { Git_Hub, NPM };

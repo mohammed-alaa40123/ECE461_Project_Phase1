@@ -33,7 +33,6 @@ export class URLFileCommand {
                         console.log(`GitHub package: ${url}`);
                         const [owner, repo] = url.split('github.com/')[1].split('/');
                         const githubRepo = new Git_Hub(repo, owner);
-                        const data = yield githubRepo.getData("GET /repos/{owner}/{repo}");
                         calculateCorrectness(owner, repo).catch(console.error);
                         checkLicenseCompatibility(owner, repo).catch(console.error);
                     }

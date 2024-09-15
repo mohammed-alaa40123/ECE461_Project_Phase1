@@ -7,20 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { graphql } from "@octokit/graphql";
-import * as dotenv from "dotenv";
-dotenv.config();
-const env = process.env;
-const GITHUB_TOKEN = env.GITHUB_TOKEN;
-const graphqlWithAuth = graphql.defaults({
-    headers: {
-        authorization: `Bearer ${GITHUB_TOKEN}`,
-    },
-});
+import { Git_Hub } from '../api.js';
 function fetchIssues(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
+        const githubRepo = new Git_Hub(repo, owner);
         const query = `
-    query IssuesQuery($owner: String!, $repo: String!) {
+    query($owner: String!, $repo: String!) {
       repository(owner: $owner, name: $repo) { 
         issues {
           totalCount
@@ -34,15 +26,13 @@ function fetchIssues(owner, repo) {
       }
     }
   `;
-        const result = yield graphqlWithAuth(query, {
-            owner,
-            repo,
-        });
+        const result = yield githubRepo.getData(query);
         return result;
     });
 }
 function calculateLOC(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
+        const githubRepo = new Git_Hub(repo, owner);
         const query = `{
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "HEAD:") {
@@ -71,7 +61,7 @@ function calculateLOC(owner, repo) {
       }
     }
   }`;
-        const result = yield graphqlWithAuth(query, { owner, repo });
+        const result = yield githubRepo.getData(query);
         let totalLines = 0;
         function countLines(text) {
             return text.split('\n').length;
@@ -80,15 +70,20 @@ function calculateLOC(owner, repo) {
             if (!entries)
                 return;
             entries.forEach((entry) => {
-                if (entry.type === "blob" && entry.object.text) {
+                if (entry.type === "blob" && entry.object && entry.object.text) {
                     totalLines += countLines(entry.object.text);
                 }
-                else if (entry.type === "tree") {
+                else if (entry.type === "tree" && entry.object && entry.object.entries) {
                     traverseTree(entry.object.entries);
                 }
             });
         }
-        traverseTree(result.repository.object.entries);
+        if (result.repository.object && result.repository.object.entries) {
+            traverseTree(result.repository.object.entries);
+        }
+        else {
+            console.error("No entries found in the repository object.");
+        }
         return totalLines;
     });
 }
@@ -99,8 +94,9 @@ function calculateCorrectness(owner, repo) {
         const totalIssues = issuesData.repository.issues.totalCount;
         const resolvedIssues = issuesData.repository.closedIssues.totalCount;
         const totalBugs = issuesData.repository.bugIssues.totalCount;
-        const correctness = ((resolvedIssues / totalIssues) +
-            (totalBugs / totalLinesOfCode)) / 2;
+        const resolvedIssuesRatio = totalIssues > 0 ? resolvedIssues / totalIssues : 1;
+        const normalizedBugRatio = totalLinesOfCode > 0 ? totalBugs / totalLinesOfCode : 0;
+        const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
         console.log(`Correctness: ${correctness}`);
     });
 }

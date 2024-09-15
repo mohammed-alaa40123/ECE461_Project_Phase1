@@ -1,25 +1,7 @@
-import { graphql } from "@octokit/graphql";
-
+import { Git_Hub } from '../api.js';
 import * as dotenv from "dotenv";
+
 dotenv.config();
-const env: NodeJS.ProcessEnv = process.env;
-
-const GITHUB_TOKEN = env.GITHUB_TOKEN; 
-
-const graphqlWithAuth = graphql.defaults({
-  headers: {
-    authorization: `Bearer ${GITHUB_TOKEN}`,
-  },
-});
-
-interface LicenseData {
-  repository: {
-    licenseInfo: {
-      name: string;
-      spdxId: string;
-    };
-  };
-}
 
 const compatibilityTable: { [key: string]: number } = {
   "LGPL-2.1": 1,
@@ -54,8 +36,11 @@ const compatibilityTable: { [key: string]: number } = {
   "CC-BY-ND-4.0": 0,
   "CC-BY-NC-SA-4.0": 0,
   "CC-BY-NC-ND-4.0": 0,
+  // Add more licenses as needed
 };
-async function fetchLicenseInfo(owner: string, repo: string): Promise<LicenseData> {
+
+async function fetchLicenseInfo(owner: string, repo: string): Promise<any> {
+  const githubRepo = new Git_Hub(repo, owner);
   const query = `
     query LicenseQuery($owner: String!, $repo: String!) {
       repository(owner: $owner, name: $repo) {
@@ -67,16 +52,12 @@ async function fetchLicenseInfo(owner: string, repo: string): Promise<LicenseDat
     }
   `;
 
-  const result: LicenseData = await graphqlWithAuth(query, {
-    owner,
-    repo,
-  });
-
+  const result = await githubRepo.getData(query);
   return result;
 }
 
 function rateLicense(licenseSpdxId: string): number {
-  return compatibilityTable[licenseSpdxId] || -1;
+  return compatibilityTable[licenseSpdxId] || 0;
 }
 
 async function checkLicenseCompatibility(owner: string, repo: string) {
@@ -88,13 +69,14 @@ async function checkLicenseCompatibility(owner: string, repo: string) {
     return;
   }
 
-  const licenseSpdxId = licenseData.repository.licenseInfo.spdxId;
-  const compatibility = rateLicense(licenseSpdxId);
+  const licenseSpdxId = licenseInfo.spdxId;
+  const compatibilityScore = rateLicense(licenseSpdxId);
 
-//   console.log(`License: ${licenseData.repository.licenseInfo.name}`);
-//   console.log(`SPDX ID: ${licenseSpdxId}`);
-  console.log(`Compatibility with LGPL v2.1: ${compatibility}`);
+  // console.log(`License: ${licenseInfo.name}`);
+  // console.log(`SPDX ID: ${licenseSpdxId}`);
+  console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
 }
 
+// checkLicenseCompatibility("octocat", "Hello-World").catch(console.error);
 
 export default checkLicenseCompatibility;
