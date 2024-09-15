@@ -7,11 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { graphql } from "@octokit/graphql";
-import * as dotenv from "dotenv";
-dotenv.config();
-const env = process.env;
-const token = env.GITHUB_TOKEN;
+import { Git_Hub } from "../api.js";
 const query = `
   query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
@@ -39,24 +35,18 @@ const query = `
     }
   }
 `;
-const graphqlWithAuth = graphql.defaults({
-    headers: {
-        authorization: `Bearer ${token}`,
-    },
-});
 function getCommitsByUser(owner, name) {
     return __awaiter(this, void 0, void 0, function* () {
-        const headers = { authorization: `Bearer ${token}` };
+        const git_repo = new Git_Hub("graphql.js", "octokit");
         let hasNextPage = true;
         let endCursor = null;
         const userCommits = {};
         try {
             while (hasNextPage) {
-                const data = yield graphql(query, {
+                const data = yield git_repo.getData(query, {
                     owner,
                     name,
                     after: endCursor,
-                    headers,
                 });
                 const commits = data.repository.defaultBranchRef.target.history.edges;
                 commits.forEach((commit) => {

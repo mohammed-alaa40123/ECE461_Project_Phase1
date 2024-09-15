@@ -29,7 +29,7 @@ export class Git_Hub extends API {
         authorization: `Bearer ${env.GITHUB_TOKEN}`,
       },
     });
-    console.log(args);
+    // console.log(args);
     try {
       const response = await graphqlWithAuth(request_string, {
         owner: this.owner_name,

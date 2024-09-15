@@ -11,15 +11,12 @@ import { Git_Hub } from '../api.js';
 function fetchIssues(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
         const githubRepo = new Git_Hub(repo, owner);
-        let hasNextPage = true;
-        let endCursor = null;
         let totalBugIssues = 0;
         let totalIssues = 0;
         let closedIssues = 0;
         let titles = [];
-        while (hasNextPage) {
-            const query = `
-      query($owner: String!, $repo: String!, $after: String) {
+        const query = `
+      query($owner: String!, $repo: String!) {
         repository(owner: $owner, name: $repo) { 
           issues {
             totalCount
@@ -27,36 +24,14 @@ function fetchIssues(owner, repo) {
           closedIssues: issues(states: CLOSED) {
             totalCount
           }
-          bugIssues: issues(first: 5, labels: ["type: bug"], after: $after) {
+          bugIssues: issues(first: 5, labels: ["type: bug"]) {
             totalCount
-            nodes {
-              title
-            }
-            pageInfo {
-              endCursor
-              hasNextPage
-            }
           }
         }
       }
     `;
-            const variables = { owner, repo, after: endCursor };
-            const result = yield githubRepo.getData(query, variables);
-            console.log(result);
-            totalIssues = result.repository.issues.totalCount;
-            closedIssues = result.repository.closedIssues.totalCount;
-            totalBugIssues += result.repository.bugIssues.totalCount;
-            hasNextPage = result.repository.bugIssues.pageInfo.hasNextPage;
-            endCursor = result.repository.bugIssues.pageInfo.endCursor;
-            titles = result.repository.bugIssues.nodes.map((node) => node.title);
-            console.log(titles);
-        }
-        return {
-            totalCount: totalIssues,
-            closedCount: closedIssues,
-            bugCount: totalBugIssues,
-            title: titles
-        };
+        const result = yield githubRepo.getData(query, null);
+        return result;
     });
 }
 function calculateLOC(owner, repo) {

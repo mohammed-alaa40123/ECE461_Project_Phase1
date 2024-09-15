@@ -29,7 +29,6 @@ export class Git_Hub extends API {
                     authorization: `Bearer ${env.GITHUB_TOKEN}`,
                 },
             });
-            console.log(args);
             try {
                 const response = yield graphqlWithAuth(request_string, Object.assign({ owner: this.owner_name, repo: this.package_name }, args));
                 return response;
