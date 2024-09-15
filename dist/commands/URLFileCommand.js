@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as fs from 'fs';
+import { timeWrapper } from '../timeWrapper.js';
 import calculateCorrectness from '../Metrics/correctness.js';
 import checkLicenseCompatibility from '../Metrics/Licensing.js';
 export class URLFileCommand {
@@ -21,18 +22,27 @@ export class URLFileCommand {
                     return;
                 }
                 const urls = data.split('\n').map(url => url.trim()).filter(url => url !== '');
+                const wrappedCalculateCorrectness = timeWrapper(calculateCorrectness, 'calculateCorrectness');
+                const wrappedCheckLicenseCompatibility = timeWrapper(checkLicenseCompatibility, 'checkLicenseCompatibility');
                 for (let url of urls) {
                     if (url.includes('github.com')) {
-                        if (url.includes('%0D')) {
-                            url = url.replace('%0D', '');
-                        }
-                        if (url.includes('\r')) {
-                            url = url.replace('\r', '');
-                        }
                         console.log(`GitHub package: ${url}`);
                         const [owner, repo] = url.split('github.com/')[1].split('/');
-                        calculateCorrectness(owner, repo).catch(console.error);
-                        checkLicenseCompatibility(owner, repo).catch(console.error);
+                        try {
+                            yield wrappedCalculateCorrectness(owner, repo);
+                        }
+                        catch (error) {
+                            console.error(`Error in calculateCorrectness for ${url}:`, error);
+                        }
+                        try {
+                            yield wrappedCheckLicenseCompatibility(owner, repo);
+                        }
+                        catch (error) {
+                            console.error(`Error in checkLicenseCompatibility for ${url}:`, error);
+                        }
+                    }
+                    else if (url.includes('npmjs.com')) {
+                        console.log(`npm package: ${url}`);
                     }
                     else {
                         console.log(`Unknown package source: ${url}`);

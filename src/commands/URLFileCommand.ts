@@ -1,7 +1,9 @@
 import * as fs from 'fs';
-import { timeWrapper } from 'src/timeWrapper.js';
-import calculateCorrectness  from '../Metrics/correctness.js';
+import { timeWrapper } from '../timeWrapper.js';
+import { Worker } from 'worker_threads';
+import calculateCorrectness from '../Metrics/correctness.js';
 import checkLicenseCompatibility from '../Metrics/Licensing.js';
+
 export class URLFileCommand {
   public static async run(file: string): Promise<void> {
     console.log(`Processing URL file: ${file}`);
@@ -12,44 +14,44 @@ export class URLFileCommand {
         return;
       }
 
-
       const urls = data.split('\n').map(url => url.trim()).filter(url => url !== '');
-    
 
+      const wrappedCalculateCorrectness = timeWrapper(calculateCorrectness, 'calculateCorrectness');
+      const wrappedCheckLicenseCompatibility = timeWrapper(checkLicenseCompatibility, 'checkLicenseCompatibility');
 
       for (let url of urls) {
         if (url.includes('github.com')) {
-          if (url.includes('%0D')) {
-            url = url.replace('%0D', '');  // Remove the invalid character
-          }
-          if (url.includes('\r')) {
-            url = url.replace('\r', '');  // Remove the invalid character
-          }
-    
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split('github.com/')[1].split('/');
-          // const githubRepo = new Git_Hub(repo, owner);
-          // const data = await githubRepo.getData("GET /repos/{owner}/{repo}");
-          // console.log("GitHub Data:", data);
-          
-          calculateCorrectness(owner, repo).catch(console.error);
-          checkLicenseCompatibility(owner, repo).catch(console.error);
 
+          try {
+            await wrappedCalculateCorrectness(owner, repo);
+          } catch (error) {
+            console.error(`Error in calculateCorrectness for ${url}:`, error);
+          }
 
-        // } else if (url.includes('npmjs.com')) {
-        //   console.log(`npm package: ${url}`);
-        //   const packageName = url.split('package/')[1];
-        //   const npmPackage = new NPM(packageName);
-        //   const data = await npmPackage.getData();
-        //   console.log("NPM Data:");
-        //   const npmData = data as any;
-        //   npmData.objects.forEach((obj: any) => {
-        //     console.log(`Package Name: ${obj.package.name}`);
-        //     console.log(`Version: ${obj.package.version}`);
-        //     console.log(`Description: ${obj.package.description}`);
-        //     console.log(`Score: ${obj.score.final}`);
-        //     console.log('-----------------------------');
-        //   });
+          try {
+            await wrappedCheckLicenseCompatibility(owner, repo);
+          } catch (error) {
+            console.error(`Error in checkLicenseCompatibility for ${url}:`, error);
+          }
+        } else if (url.includes('npmjs.com')) {
+          console.log(`npm package: ${url}`);
+          // const packageName = url.split('package/')[1];
+
+          // try {
+          //   const correctnessResult = await wrappedCalculateCorrectness(packageName);
+          //   console.log(`calculateCorrectness result: ${correctnessResult}`);
+          // } catch (error) {
+          //   console.error(`Error in calculateCorrectness for ${url}:`, error);
+          // }
+
+          // try {
+          //   const licenseResult = await wrappedCheckLicenseCompatibility(packageName);
+          //   console.log(`checkLicenseCompatibility result: ${licenseResult}`);
+          // } catch (error) {
+          //   console.error(`Error in checkLicenseCompatibility for ${url}:`, error);
+          // }
         } else {
           console.log(`Unknown package source: ${url}`);
         }
