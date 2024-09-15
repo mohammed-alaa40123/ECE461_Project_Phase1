@@ -60,11 +60,35 @@ async function getCommitsByUser(owner: string, name: string) {
             hasNextPage = data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
             endCursor = data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
         }
-
-        console.log('Commits by user:');
+        const commitnumbers : number[]=[];
+        
         Object.entries(userCommits).forEach(([user, commits]) => {
-            console.log(`${user}: ${commits} commits`);
+            commitnumbers.push(commits);
         });
+        commitnumbers.sort((a, b) => b - a);
+        console.log('Sorted commit numbers:');
+        commitnumbers.forEach((commits, index) => {
+        console.log(`Commit ${index + 1}: ${commits}`);
+        
+
+    });
+    var sum:number=0;
+    commitnumbers.forEach((commits, index) => {
+      sum=sum+commits;
+      
+
+  });
+  console.log('Total commits:',sum);
+  var currentsum:number=0;
+  var busfactor:number=0;
+  for (const commits of commitnumbers) {
+    currentsum += commits;
+    busfactor += 1;
+    if (currentsum > sum / 2) {
+      break;
+    }
+  }
+  console.log('Bus factor:',busfactor);
     } catch (error) {
         console.error('Error fetching data from GitHub API:', error);
     }
