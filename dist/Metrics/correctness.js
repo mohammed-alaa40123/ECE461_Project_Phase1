@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Git_Hub } from '../api.js';
+import { Git_Hub } from '../api';
 function fetchIssues(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
         const githubRepo = new Git_Hub(repo, owner);

@@ -1,5 +1,5 @@
 import { resourceLimits } from 'worker_threads';
-import { Git_Hub } from '../api.js';
+import { Git_Hub } from '../api';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
   const githubRepo = new Git_Hub(repo, owner);

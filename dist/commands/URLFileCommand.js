@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as fs from 'fs';
-import { timeWrapper } from '../timeWrapper.js';
-import calculateCorrectness from '../Metrics/correctness.js';
-import checkLicenseCompatibility from '../Metrics/Licensing.js';
+import { timeWrapper } from '../timeWrapper';
+import calculateCorrectness from '../Metrics/correctness';
+import checkLicenseCompatibility from '../Metrics/Licensing';
 export class URLFileCommand {
     static run(file) {
         return __awaiter(this, void 0, void 0, function* () {

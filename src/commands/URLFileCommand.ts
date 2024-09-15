@@ -1,8 +1,8 @@
 import * as fs from 'fs';
-import { timeWrapper } from '../timeWrapper.js';
+import { timeWrapper } from '../timeWrapper';
 import { Worker } from 'worker_threads';
-import calculateCorrectness from '../Metrics/correctness.js';
-import checkLicenseCompatibility from '../Metrics/Licensing.js';
+import calculateCorrectness from '../Metrics/correctness';
+import checkLicenseCompatibility from '../Metrics/Licensing';
 
 export class URLFileCommand {
   public static async run(file: string): Promise<void> {
