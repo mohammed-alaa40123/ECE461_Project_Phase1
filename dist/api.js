@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { graphql } from "@octokit/graphql";
-import fetch from "node-fetch";
 import * as dotenv from "dotenv";
 dotenv.config();
 const env = process.env;
