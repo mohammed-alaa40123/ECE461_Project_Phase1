@@ -7,14 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Git_Hub } from '../api.js';
+import { GitHub } from '../api.js';
 function fetchIssues(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
-        const githubRepo = new Git_Hub(repo, owner);
-        let totalBugIssues = 0;
-        let totalIssues = 0;
-        let closedIssues = 0;
-        let titles = [];
+        const githubRepo = new GitHub(repo, owner);
         const query = `
       query($owner: String!, $repo: String!) {
         repository(owner: $owner, name: $repo) { 
@@ -36,7 +32,7 @@ function fetchIssues(owner, repo) {
 }
 function calculateLOC(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
-        const githubRepo = new Git_Hub(repo, owner);
+        const githubRepo = new GitHub(repo, owner);
         const query = `{
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "HEAD:") {

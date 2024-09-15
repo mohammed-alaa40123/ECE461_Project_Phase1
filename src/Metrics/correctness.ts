@@ -1,12 +1,12 @@
-import { resourceLimits } from 'worker_threads';
-import { Git_Hub } from '../api.js';
+// import { resourceLimits } from 'worker_threads';
+import { GitHub } from '../api.js';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
-  const githubRepo = new Git_Hub(repo, owner);
-  let totalBugIssues = 0;
-  let totalIssues = 0;
-  let closedIssues = 0;
-  let titles = [];
+  const githubRepo = new GitHub(repo, owner);
+  // let totalBugIssues = 0;
+  // let totalIssues = 0;
+  // let closedIssues = 0;
+  // let titles = [];
 
     const query = `
       query($owner: String!, $repo: String!) {
@@ -27,8 +27,9 @@ async function fetchIssues(owner: string, repo: string): Promise<any> {
     const result = await githubRepo.getData(query,null);
   return result;
 }
+
 async function calculateLOC(owner: string, repo: string): Promise<number> {
-  const githubRepo = new Git_Hub(repo, owner);
+  const githubRepo = new GitHub(repo, owner);
   const query = `{
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "HEAD:") {

@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { parentPort, workerData } from 'worker_threads';
-import calculateCorrectness from './Metrics/correctness.js';
-import checkLicenseCompatibility from './Metrics/Licensing.js';
+import { parentPort, workerData } from "worker_threads";
+import calculateCorrectness from "./Metrics/Correctness.js";
+import checkLicenseCompatibility from "./Metrics/Licensing.js";
 function runFunction(fn, args) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -17,14 +17,17 @@ function runFunction(fn, args) {
             parentPort === null || parentPort === void 0 ? void 0 : parentPort.postMessage({ success: true, result });
         }
         catch (error) {
-            parentPort === null || parentPort === void 0 ? void 0 : parentPort.postMessage({ success: false, error: error.message });
+            parentPort === null || parentPort === void 0 ? void 0 : parentPort.postMessage({
+                success: false,
+                error: error.message,
+            });
         }
     });
 }
 const { functionName, args } = workerData;
-if (functionName === 'calculateCorrectness') {
+if (functionName === "calculateCorrectness") {
     runFunction(calculateCorrectness, args);
 }
-else if (functionName === 'checkLicenseCompatibility') {
+else if (functionName === "checkLicenseCompatibility") {
     runFunction(checkLicenseCompatibility, args);
 }

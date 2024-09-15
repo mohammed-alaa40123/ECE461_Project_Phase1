@@ -1,6 +1,4 @@
-import { graphql } from "@octokit/graphql";
-
-import { Git_Hub } from "../api.js";
+import { GitHub } from "../api.js";
 const query = `
   query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
@@ -30,71 +28,68 @@ const query = `
 `;
 
 async function getCommitsByUser(owner: string, name: string) {
-    const git_repo = new Git_Hub("graphql.js", "octokit");
+  const git_repo = new GitHub("graphql.js", "octokit");
 
-    let hasNextPage = true;
-    let endCursor = null;
-    const userCommits: { [key: string]: number } = {};
+  let hasNextPage = true;
+  let endCursor = null;
+  const userCommits: { [key: string]: number } = {};
 
-    try {
-        while (hasNextPage) {
-            const data = await git_repo.getData(query, {
-                owner,
-                name,
-                after: endCursor,
+  try {
+    while (hasNextPage) {
+      const data = await git_repo.getData(query, {
+        owner,
+        name,
+        after: endCursor,
+      });
 
-            });
+      const commits = data.repository.defaultBranchRef.target.history.edges;
 
-            const commits = data.repository.defaultBranchRef.target.history.edges;
-
-            commits.forEach((commit: any) => {
-                const author = commit.node.author.user?.login;
-                if (author) {
-                    if (!userCommits[author]) {
-                        userCommits[author] = 0;
-                    }
-                    userCommits[author] += 1;
-                }
-            });
-
-            hasNextPage = data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
-            endCursor = data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
+      commits.forEach((commit: any) => {
+        const author = commit.node.author.user?.login;
+        if (author) {
+          if (!userCommits[author]) {
+            userCommits[author] = 0;
+          }
+          userCommits[author] += 1;
         }
-        const commitnumbers : number[]=[];
-        
-        Object.entries(userCommits).forEach(([user, commits]) => {
-            commitnumbers.push(commits);
-        });
-        commitnumbers.sort((a, b) => b - a);
-        console.log('Sorted commit numbers:');
-        commitnumbers.forEach((commits, index) => {
-        console.log(`Commit ${index + 1}: ${commits}`);
-        
+      });
 
+      hasNextPage =
+        data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
+      endCursor =
+        data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
+    }
+    const commitnumbers: number[] = [];
+
+    Object.entries(userCommits).forEach((commits) => {
+      commitnumbers.push(commits[1]);
     });
-    var sum:number=0;
+    commitnumbers.sort((a, b) => b - a);
+    console.log("Sorted commit numbers:");
     commitnumbers.forEach((commits, index) => {
-      sum=sum+commits;
-      
-
-  });
-  console.log('Total commits:',sum);
-  var currentsum:number=0;
-  var busfactor:number=0;
-  for (const commits of commitnumbers) {
-    currentsum += commits;
-    busfactor += 1;
-    if (currentsum > sum / 2) {
-      break;
+      console.log(`Commit ${index + 1}: ${commits}`);
+    });
+    var sum: number = 0;
+    commitnumbers.forEach((commits) => {
+      sum = sum + commits;
+    });
+    console.log("Total commits:", sum);
+    var currentsum: number = 0;
+    var busfactor: number = 0;
+    for (const commits of commitnumbers) {
+      currentsum += commits;
+      busfactor += 1;
+      if (currentsum > sum / 2) {
+        break;
+      }
     }
+    console.log("Bus factor:", busfactor);
+  } catch (error) {
+    console.error("Error fetching data from GitHub API:", error);
   }
-  console.log('Bus factor:',busfactor);
-    } catch (error) {
-        console.error('Error fetching data from GitHub API:', error);
-    }
 }
 
 // Example usage
-const owner = 'octokit'; // Replace with the repository owner
-const name = 'graphql.js'; // Replace with the repository name
+const owner = "octokit"; // Replace with the repository owner
+const name = "graphql.js"; // Replace with the repository name
 getCommitsByUser(owner, name);

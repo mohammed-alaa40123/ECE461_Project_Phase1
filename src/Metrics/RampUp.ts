@@ -1,5 +1,4 @@
-import { graphql } from "@octokit/graphql";
-import { Git_Hub } from "../api.js";
+import { GitHub } from "../api.js";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -22,8 +21,11 @@ const query = `
   }
 `;
 
-async function calculateAverageTimeForFirstPR(owner: string, name: string): Promise<number> {
-  const git_repo = new Git_Hub("graphql.js", "octokit");
+async function calculateAverageTimeForFirstPR(
+  owner: string,
+  name: string
+): Promise<number> {
+  const git_repo = new GitHub("graphql.js", "octokit");
 
   let hasNextPage = true;
   let endCursor = null;
@@ -31,7 +33,11 @@ async function calculateAverageTimeForFirstPR(owner: string, name: string): Prom
 
   try {
     while (hasNextPage) {
-      const data = await git_repo.getData(query, { owner, name, after: endCursor });
+      const data = await git_repo.getData(query, {
+        owner,
+        name,
+        after: endCursor,
+      });
 
       const pullRequests = data.repository.pullRequests.edges;
 
@@ -40,7 +46,7 @@ async function calculateAverageTimeForFirstPR(owner: string, name: string): Prom
         const createdAt = new Date(pr.node.createdAt).getTime();
 
         if (author && author.login && !firstPRTimes[author.login]) {
-            firstPRTimes[author.login] = createdAt;
+          firstPRTimes[author.login] = createdAt;
         }
       });
 
@@ -61,8 +67,8 @@ async function calculateAverageTimeForFirstPR(owner: string, name: string): Prom
 
 // Example usage
 (async () => {
-    const owner = 'octokit'; // Replace with the repository owner
-    const name = 'graphql.js'; // Replace with the repository name
+  const owner = "octokit"; // Replace with the repository owner
+  const name = "graphql.js"; // Replace with the repository name
   try {
     const averageTime = await calculateAverageTimeForFirstPR(owner, name);
     console.log(`Average time for first PR: ${averageTime} ms`);

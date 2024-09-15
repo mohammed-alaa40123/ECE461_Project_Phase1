@@ -16,7 +16,7 @@ class API {
         this.package_name = name;
     }
 }
-export class Git_Hub extends API {
+export class GitHub extends API {
     constructor(p_name, own_name) {
         super(p_name);
         this.owner_name = own_name;
@@ -43,7 +43,7 @@ export class NPM extends API {
     constructor(p_name) {
         super(p_name);
     }
-    getData(request_string) {
+    getData() {
         return __awaiter(this, void 0, void 0, function* () {
             const url = `https://registry.npmjs.org/${this.package_name}`;
             try {
@@ -62,4 +62,4 @@ export class NPM extends API {
         });
     }
 }
-export default { Git_Hub, NPM };
+export default { GitHub, NPM };
