@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { Git_Hub, NPM } from '../api.js';
 import calculateCorrectness  from '../Metrics/correctness.js';
+import checkLicenseCompatibility from '../Metrics/Licensing.js';
 export class URLFileCommand {
   public static async run(file: string): Promise<void> {
     console.log(`Processing URL file: ${file}`);
@@ -31,6 +32,7 @@ export class URLFileCommand {
           const data = await githubRepo.getData("GET /repos/{owner}/{repo}");
           // console.log("GitHub Data:", data);
           calculateCorrectness(owner, repo).catch(console.error);
+          checkLicenseCompatibility(owner, repo).catch(console.error);
 
 
         // } else if (url.includes('npmjs.com')) {

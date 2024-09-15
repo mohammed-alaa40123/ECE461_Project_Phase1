@@ -101,10 +101,6 @@ function calculateCorrectness(owner, repo) {
         const totalBugs = issuesData.repository.bugIssues.totalCount;
         const correctness = ((resolvedIssues / totalIssues) +
             (totalBugs / totalLinesOfCode)) / 2;
-        console.log(`Total Issues: ${totalIssues}`);
-        console.log(`Resolved Issues: ${resolvedIssues}`);
-        console.log(`Total Bugs: ${totalBugs}`);
-        console.log(`Total Lines of Code: ${totalLinesOfCode}`);
         console.log(`Correctness: ${correctness}`);
     });
 }

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import * as fs from 'fs';
 import { Git_Hub } from '../api.js';
 import calculateCorrectness from '../Metrics/correctness.js';
+import checkLicenseCompatibility from '../Metrics/Licensing.js';
 export class URLFileCommand {
     static run(file) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,6 +35,7 @@ export class URLFileCommand {
                         const githubRepo = new Git_Hub(repo, owner);
                         const data = yield githubRepo.getData("GET /repos/{owner}/{repo}");
                         calculateCorrectness(owner, repo).catch(console.error);
+                        checkLicenseCompatibility(owner, repo).catch(console.error);
                     }
                     else {
                         console.log(`Unknown package source: ${url}`);
