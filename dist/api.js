@@ -23,11 +23,11 @@ export class Git_Hub extends API {
         super(p_name);
         this.owner_name = own_name;
     }
-    getData() {
+    getData(request_string) {
         return __awaiter(this, void 0, void 0, function* () {
             const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
             try {
-                const response = yield octokit.request("GET /repos/{owner}/{repo}", {
+                const response = yield octokit.request(request_string, {
                     owner: this.owner_name,
                     repo: this.package_name,
                     headers: {

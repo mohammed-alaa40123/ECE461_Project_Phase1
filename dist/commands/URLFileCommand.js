@@ -8,7 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as fs from 'fs';
-import { Git_Hub, NPM } from '../api.js';
+import { Git_Hub } from '../api.js';
+import calculateCorrectness from '../Metrics/correctness.js';
 export class URLFileCommand {
     static run(file) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -31,23 +32,8 @@ export class URLFileCommand {
                         console.log(`GitHub package: ${url}`);
                         const [owner, repo] = url.split('github.com/')[1].split('/');
                         const githubRepo = new Git_Hub(repo, owner);
-                        const data = yield githubRepo.getData();
-                        console.log("GitHub Data:", data);
-                    }
-                    else if (url.includes('npmjs.com')) {
-                        console.log(`npm package: ${url}`);
-                        const packageName = url.split('package/')[1];
-                        const npmPackage = new NPM(packageName);
-                        const data = yield npmPackage.getData();
-                        console.log("NPM Data:");
-                        const npmData = data;
-                        npmData.objects.forEach((obj) => {
-                            console.log(`Package Name: ${obj.package.name}`);
-                            console.log(`Version: ${obj.package.version}`);
-                            console.log(`Description: ${obj.package.description}`);
-                            console.log(`Score: ${obj.score.final}`);
-                            console.log('-----------------------------');
-                        });
+                        const data = yield githubRepo.getData("GET /repos/{owner}/{repo}");
+                        calculateCorrectness(owner, repo).catch(console.error);
                     }
                     else {
                         console.log(`Unknown package source: ${url}`);

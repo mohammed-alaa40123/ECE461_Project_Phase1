@@ -10,7 +10,7 @@ export abstract class API{
   constructor(name: string){
     this.package_name=name;
   }
-  public abstract getData():any
+  public abstract getData(request_string:string):any
 }
 
 export class Git_Hub extends API{
@@ -19,10 +19,10 @@ export class Git_Hub extends API{
     super(p_name);
     this.owner_name=own_name;
   }
-  public async  getData():Promise<void|JSON>{
+  public async  getData(request_string:string):Promise<void|JSON>{
     const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
     try {
-      const response = await octokit.request("GET /repos/{owner}/{repo}", {
+      const response = await octokit.request(request_string, {
         owner: this.owner_name,
         repo: this.package_name,
         headers: {
