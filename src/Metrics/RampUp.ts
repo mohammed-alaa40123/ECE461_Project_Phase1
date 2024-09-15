@@ -2,9 +2,9 @@ import { graphql } from "@octokit/graphql";
 import { Git_Hub } from "../api.js";
 
 const query = `
-  query($owner: String!, $name: String!) {
+  query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
-      pullRequests(first: 100, orderBy: {field: CREATED_AT, direction: ASC}) {
+      pullRequests(first: 100, after: $after, orderBy: {field: CREATED_AT, direction: ASC}) {
         edges {
           node {
             createdAt
@@ -13,6 +13,10 @@ const query = `
             }
           }
         }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }
@@ -20,30 +24,39 @@ const query = `
 
 async function calculateAverageTimeForFirstPR(owner: string, name: string): Promise<number> {
   const git_repo = new Git_Hub("graphql.js", "octokit");
-  const data = await git_repo.getData(query, { owner, name });
 
-  const pullRequests = data.repository.pullRequests.edges;
-
-  if (pullRequests.length === 0) {
-    return 0; // No pull requests found
-  }
-
+  let hasNextPage = true;
+  let endCursor = null;
   const firstPRTimes: { [key: string]: number } = {};
 
-  pullRequests.forEach((pr: any) => {
-    const author = pr.node.author.login;
-    const createdAt = new Date(pr.node.createdAt).getTime();
+  try {
+    while (hasNextPage) {
+      const data = await git_repo.getData(query, { owner, name, after: endCursor });
 
-    if (!firstPRTimes[author]) {
-      firstPRTimes[author] = createdAt;
+      const pullRequests = data.repository.pullRequests.edges;
+
+      pullRequests.forEach((pr: any) => {
+        const author = pr.node.author;
+        const createdAt = new Date(pr.node.createdAt).getTime();
+
+        if (author && author.login && !firstPRTimes[author.login]) {
+            firstPRTimes[author.login] = createdAt;
+        }
+      });
+
+      hasNextPage = data.repository.pullRequests.pageInfo.hasNextPage;
+      endCursor = data.repository.pullRequests.pageInfo.endCursor;
     }
-  });
 
-  const firstPRDates = Object.values(firstPRTimes);
-  const totalFirstPRTime = firstPRDates.reduce((acc, time) => acc + time, 0);
-  const averageFirstPRTime = totalFirstPRTime / firstPRDates.length;
+    const firstPRDates = Object.values(firstPRTimes);
+    const totalFirstPRTime = firstPRDates.reduce((acc, time) => acc + time, 0);
+    const averageFirstPRTime = totalFirstPRTime / firstPRDates.length;
 
-  return averageFirstPRTime;
+    return averageFirstPRTime;
+  } catch (error) {
+    console.error("Error fetching pull requests:", error);
+    throw error;
+  }
 }
 
 // Example usage
