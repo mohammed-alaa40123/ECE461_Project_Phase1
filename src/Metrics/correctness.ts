@@ -2,26 +2,62 @@ import { Git_Hub } from '../api.js';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
   const githubRepo = new Git_Hub(repo, owner);
-  const query = `
-    query($owner: String!, $repo: String!) {
-      repository(owner: $owner, name: $repo) { 
-        issues {
-          totalCount
-        }
-        closedIssues: issues(states: CLOSED) {
-          totalCount
-        }
-        bugIssues: issues(first: 100, labels: ["type: bug"]) {
-          totalCount
+  let hasNextPage = true;
+  let endCursor = null;
+  let totalBugIssues = 0;
+  let totalIssues = 0;
+  let closedIssues = 0;
+  let titles = [];
+
+  while (hasNextPage) {
+    const query = `
+      query($owner: String!, $repo: String!, $after: String) {
+        repository(owner: $owner, name: $repo) { 
+          issues {
+            totalCount
+          }
+          closedIssues: issues(states: CLOSED) {
+            totalCount
+          }
+          bugIssues: issues(first: 5, labels: ["type: bug"], after: $after) {
+            totalCount
+            nodes {
+              title
+            }
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
+          }
         }
       }
-    }
-  `;
+    `;
 
-  const result = await githubRepo.getData(query);
-  return result;
+    const variables = { owner, repo, after: endCursor };
+    const result = await githubRepo.getData(query, variables);
+    console.log(result);
+
+    // if (!result || !result.repository) {
+    //   throw new Error(`Repository ${owner}/${repo} not found or no data returned`);
+    // }
+
+    totalIssues = result.repository.issues.totalCount;
+    closedIssues = result.repository.closedIssues.totalCount;
+    totalBugIssues += result.repository.bugIssues.totalCount;
+    hasNextPage = result.repository.bugIssues.pageInfo.hasNextPage;
+    endCursor = result.repository.bugIssues.pageInfo.endCursor;
+    titles = result.repository.bugIssues.nodes.map((node: any) => node.title);
+    console.log(titles);
+
+  }
+
+  return {
+    totalCount: totalIssues,
+    closedCount: closedIssues,
+    bugCount: totalBugIssues,
+    title:titles
+  };
 }
-
 async function calculateLOC(owner: string, repo: string): Promise<number> {
   const githubRepo = new Git_Hub(repo, owner);
   const query = `{
@@ -53,7 +89,7 @@ async function calculateLOC(owner: string, repo: string): Promise<number> {
     }
   }`;
 
-  const result = await githubRepo.getData(query);
+  const result = await githubRepo.getData(query,null);
 
   let totalLines = 0;
   function countLines(text: string) {
@@ -100,7 +136,6 @@ async function calculateCorrectness(owner: string, repo: string) {
   // console.log(`Total Lines of Code: ${totalLinesOfCode}`);
   console.log(`Correctness: ${correctness}`);
 }
-
-// calculateCorrectness("octocat", "Hello-World").catch(console.error);
-
 export default calculateCorrectness;
+
+calculateCorrectness("octokit", "graphql.js").catch(console.error);

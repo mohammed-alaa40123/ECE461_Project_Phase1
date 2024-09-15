@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { Git_Hub, NPM } from '../api.js';
+import { timeWrapper } from 'src/timeWrapper.js';
 import calculateCorrectness  from '../Metrics/correctness.js';
 import checkLicenseCompatibility from '../Metrics/Licensing.js';
 export class URLFileCommand {
@@ -28,7 +28,7 @@ export class URLFileCommand {
     
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split('github.com/')[1].split('/');
-          const githubRepo = new Git_Hub(repo, owner);
+          // const githubRepo = new Git_Hub(repo, owner);
           // const data = await githubRepo.getData("GET /repos/{owner}/{repo}");
           // console.log("GitHub Data:", data);
           

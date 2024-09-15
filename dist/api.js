@@ -22,18 +22,16 @@ export class Git_Hub extends API {
         super(p_name);
         this.owner_name = own_name;
     }
-    getData(request_string) {
+    getData(request_string, args) {
         return __awaiter(this, void 0, void 0, function* () {
             const graphqlWithAuth = graphql.defaults({
                 headers: {
                     authorization: `Bearer ${env.GITHUB_TOKEN}`,
                 },
             });
+            console.log(args);
             try {
-                const response = yield graphqlWithAuth(request_string, {
-                    owner: this.owner_name,
-                    repo: this.package_name,
-                });
+                const response = yield graphqlWithAuth(request_string, Object.assign({ owner: this.owner_name, repo: this.package_name }, args));
                 return response;
             }
             catch (error) {

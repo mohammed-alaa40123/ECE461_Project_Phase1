@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as fs from 'fs';
-import { Git_Hub } from '../api.js';
 import calculateCorrectness from '../Metrics/correctness.js';
 import checkLicenseCompatibility from '../Metrics/Licensing.js';
 export class URLFileCommand {
@@ -32,7 +31,6 @@ export class URLFileCommand {
                         }
                         console.log(`GitHub package: ${url}`);
                         const [owner, repo] = url.split('github.com/')[1].split('/');
-                        const githubRepo = new Git_Hub(repo, owner);
                         calculateCorrectness(owner, repo).catch(console.error);
                         checkLicenseCompatibility(owner, repo).catch(console.error);
                     }

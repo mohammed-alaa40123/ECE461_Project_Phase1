@@ -57,7 +57,7 @@ function fetchLicenseInfo(owner, repo) {
       }
     }
   `;
-        const result = yield githubRepo.getData(query);
+        const result = yield githubRepo.getData(query, null);
         return result;
     });
 }

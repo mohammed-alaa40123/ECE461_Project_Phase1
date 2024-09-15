@@ -13,7 +13,7 @@ abstract class API {
   constructor(name: string) {
     this.package_name = name;
   }
-  public abstract getData(request_string: string): Promise<any>;
+  public abstract getData(request_string: string,args:any): Promise<any>;
 }
 
 export class Git_Hub extends API {
@@ -23,17 +23,18 @@ export class Git_Hub extends API {
     this.owner_name = own_name;
   }
 
-  public async getData(request_string: string): Promise<any> {
+  public async getData(request_string: string,args:any): Promise<any> {
     const graphqlWithAuth = graphql.defaults({
       headers: {
         authorization: `Bearer ${env.GITHUB_TOKEN}`,
       },
     });
-
+    console.log(args);
     try {
       const response = await graphqlWithAuth(request_string, {
         owner: this.owner_name,
         repo: this.package_name,
+        ...args,
       });
       // console.log("Package info fetched successfully");
       return response;
