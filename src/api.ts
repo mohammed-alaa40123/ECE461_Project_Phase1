@@ -1,6 +1,5 @@
-import { graphql } from "@octokit/graphql";
-
-import * as dotenv from "dotenv";
+import axios from 'axios';
+import * as dotenv from 'dotenv';
 dotenv.config();
 const env: NodeJS.ProcessEnv = process.env;
 
@@ -19,19 +18,22 @@ export class GitHub extends API {
     this.owner_name = own_name;
   }
 
-  public async getData(request_string: string, args: any): Promise<any> {
-    const graphqlWithAuth = graphql.defaults({
-      headers: {
-        authorization: `Bearer ${env.GITHUB_TOKEN}`,
-      },
-    });
-    try {
-      const response = await graphqlWithAuth(request_string, {
+  public async getData(request_string: string, args?: any): Promise<any> {
+    const url = 'https://api.github.com/graphql';
+    const headers = {
+      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+    };
+    const data = {
+      query: request_string,
+      variables: {
         owner: this.owner_name,
         repo: this.package_name,
         ...args,
-      });
-      return response;
+      },
+    };
+    try {
+      const response = await axios.post(url, data, { headers });
+      return response.data;
     } catch (error) {
       console.error("Error fetching package info:", error);
       throw error;
@@ -62,20 +64,29 @@ export class NPM extends API {
 }
 
 // Example usage
-// const github = new GitHub("Hello-World", "octocat");
+const github = new GitHub( "graphql.js", "octokit");
 // const npm = new NPM("express");
-
-// github.getData(`
-//   query($owner: String!, $repo: String!) {
-//     repository(owner: $owner, name: $repo) {
-//       licenseInfo {
-//         name
-//         spdxId
-//       }
-//     }
-//   }
-// `).then(result => console.log(result)).catch(error => console.error(error));
-
+async function test (){
+let result:any = await github.getData(`
+        query($owner: String!, $repo: String!) {
+        repository(owner: $owner, name: $repo) { 
+          issues {
+            totalCount
+          }
+          closedIssues: issues(states: CLOSED) {
+            totalCount
+          }
+          bugIssues: issues(first: 5, labels: ["type: bug"]) {
+            totalCount
+          }
+        }
+      }
+`)
+return result;
+// console.log(result.data.repository.issues.totalCount);
+}
+test();
+// console.log(result.);
 // npm.getData("").then(result => console.log(result)).catch(error => console.error(error));
 
 export default { GitHub, NPM };

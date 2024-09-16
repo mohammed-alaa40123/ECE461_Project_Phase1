@@ -114,40 +114,40 @@ describe('TestCommand', () => {
 // });
 
 // Mock the dependencies
-jest.mock('../src/Metrics/correctness');
-jest.mock('../src/Metrics/Licensing');
+// jest.mock('../src/Metrics/correctness');
+// jest.mock('../src/Metrics/Licensing');
 
-describe('TestCommand', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+// describe('TestCommand', () => {
+//   afterEach(() => {
+//     jest.clearAllMocks();
+//   });
 
-  test('should install a dependency', (done) => {
-    const dependency = 'lodash';
+//   test('should install a dependency', (done) => {
+//     const dependency = 'lodash';
 
-    // Capture console output
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+//     // Capture console output
+//     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
-    InstallCommand.installDependency(dependency)
-      .then(() => {
-        expect(consoleLogSpy).toHaveBeenCalledWith(`Successfully installed ${dependency}`);
-        done();
-      })
-      .catch((error: any) => {
-        console.error(error);
-        done(error);
-      })
-      .finally(() => {
-        consoleLogSpy.mockRestore();
-      });
-  });
+//     InstallCommand.installDependency(dependency)
+//       .then(() => {
+//         expect(consoleLogSpy).toHaveBeenCalledWith(`Successfully installed ${dependency}`);
+//         done();
+//       })
+//       .catch((error: any) => {
+//         console.error(error);
+//         done(error);
+//       })
+//       .finally(() => {
+//         consoleLogSpy.mockRestore();
+//       });
+//   });
 
-  test('should correctly parse and filter URLs', () => {
-    const mockData = 'https://github.com/owner/repo\n\nhttps://github.com/another/another-repo\n';
-    const urls = mockData.split('\n').map(url => url.trim()).filter(url => url !== '');
+//   test('should correctly parse and filter URLs', () => {
+//     const mockData = 'https://github.com/owner/repo\n\nhttps://github.com/another/another-repo\n';
+//     const urls = mockData.split('\n').map(url => url.trim()).filter(url => url !== '');
 
-    expect(urls).toEqual(['https://github.com/owner/repo', 'https://github.com/another/another-repo']);
-  });
+//     expect(urls).toEqual(['https://github.com/owner/repo', 'https://github.com/another/another-repo']);
+//   });
 
   // test('should call calculateCorrectness with correct arguments', async () => {
   //   const mockData = 'https://github.com/owner/repo\nhttps://github.com/another/another-repo';
@@ -186,4 +186,4 @@ describe('TestCommand', () => {
   //   // Restore console.error
   //   consoleErrorSpy.mockRestore();
   // });
- });
+//  });

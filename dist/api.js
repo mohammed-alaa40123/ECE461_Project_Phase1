@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { graphql } from "@octokit/graphql";
-import * as dotenv from "dotenv";
+import axios from 'axios';
+import * as dotenv from 'dotenv';
 dotenv.config();
 const env = process.env;
 class API {
@@ -23,14 +23,17 @@ export class GitHub extends API {
     }
     getData(request_string, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            const graphqlWithAuth = graphql.defaults({
-                headers: {
-                    authorization: `Bearer ${env.GITHUB_TOKEN}`,
-                },
-            });
+            const url = 'https://api.github.com/graphql';
+            const headers = {
+                Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+            };
+            const data = {
+                query: request_string,
+                variables: Object.assign({ owner: this.owner_name, repo: this.package_name }, args),
+            };
             try {
-                const response = yield graphqlWithAuth(request_string, Object.assign({ owner: this.owner_name, repo: this.package_name }, args));
-                return response;
+                const response = yield axios.post(url, data, { headers });
+                return response.data;
             }
             catch (error) {
                 console.error("Error fetching package info:", error);
@@ -62,4 +65,26 @@ export class NPM extends API {
         });
     }
 }
+const github = new GitHub("graphql.js", "octokit");
+function functionName() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let result = yield github.getData(`
+        query($owner: String!, $repo: String!) {
+        repository(owner: $owner, name: $repo) { 
+          issues {
+            totalCount
+          }
+          closedIssues: issues(states: CLOSED) {
+            totalCount
+          }
+          bugIssues: issues(first: 5, labels: ["type: bug"]) {
+            totalCount
+          }
+        }
+      }
+`);
+        console.log(result.data.repository.issues.totalCount);
+    });
+}
+functionName();
 export default { GitHub, NPM };
