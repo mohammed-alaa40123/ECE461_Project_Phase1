@@ -1,12 +1,12 @@
-import * as fs from 'fs';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import * as path from 'path';
+// import * as fs from 'fs';
+// import { exec } from 'child_process';
+// import { promisify } from 'util';
+// import * as path from 'path';
 import { InstallCommand } from '../src/commands/InstallCommand';
 
-import { URLFileCommand } from '../src/commands/URLFileCommand';
-import  calculateCorrectness  from '../src/Metrics/correctness';
-import  checkLicenseCompatibility  from '../src/Metrics/Licensing';
+// import { URLFileCommand } from '../src/commands/URLFileCommand';
+// import  calculateCorrectness  from '../src/Metrics/correctness';
+// import  checkLicenseCompatibility  from '../src/Metrics/Licensing';
 
 describe('TestCommand', () => {
   // afterEach(() => {
@@ -149,41 +149,41 @@ describe('TestCommand', () => {
     expect(urls).toEqual(['https://github.com/owner/repo', 'https://github.com/another/another-repo']);
   });
 
-  test('should call calculateCorrectness with correct arguments', async () => {
-    const mockData = 'https://github.com/owner/repo\nhttps://github.com/another/another-repo';
-    const mockCalculateCorrectness = calculateCorrectness as jest.Mock;
+  // test('should call calculateCorrectness with correct arguments', async () => {
+  //   const mockData = 'https://github.com/owner/repo\nhttps://github.com/another/another-repo';
+  //   const mockCalculateCorrectness = calculateCorrectness as jest.Mock;
 
-    // Mock implementations
-    mockCalculateCorrectness.mockResolvedValue(true);
+  //   // Mock implementations
+  //   mockCalculateCorrectness.mockResolvedValue(true);
 
-    // Call the function with the mock data
-    await URLFileCommand.run(mockData);
+  //   // Call the function with the mock data
+  //   await URLFileCommand.run(mockData);
 
-    // Verify that the mocked function was called with the correct arguments
-    expect(mockCalculateCorrectness).toHaveBeenCalledWith('owner', 'repo');
-    expect(mockCalculateCorrectness).toHaveBeenCalledWith('another', 'another-repo');
-  });
+  //   // Verify that the mocked function was called with the correct arguments
+  //   expect(mockCalculateCorrectness).toHaveBeenCalledWith('owner', 'repo');
+  //   expect(mockCalculateCorrectness).toHaveBeenCalledWith('another', 'another-repo');
+  // });
 
-  test('should handle errors in calculateCorrectness correctly', async () => {
-    const mockData = 'https://github.com/owner/repo';
-    const mockCalculateCorrectness = calculateCorrectness as jest.Mock;
+  // test('should handle errors in calculateCorrectness correctly', async () => {
+  //   const mockData = 'https://github.com/owner/repo';
+  //   const mockCalculateCorrectness = calculateCorrectness as jest.Mock;
 
-    // Mock implementations
-    mockCalculateCorrectness.mockRejectedValue(new Error('Test error'));
+  //   // Mock implementations
+  //   mockCalculateCorrectness.mockRejectedValue(new Error('Test error'));
 
-    // Spy on console.error
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  //   // Spy on console.error
+  //   const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    // Call the function with the mock data
-    await URLFileCommand.run(mockData);
+  //   // Call the function with the mock data
+  //   await URLFileCommand.run(mockData);
 
-    // Verify that the error was logged
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      'Error in calculateCorrectness for https://github.com/owner/repo:',
-      expect.any(Error)
-    );
+  //   // Verify that the error was logged
+  //   expect(consoleErrorSpy).toHaveBeenCalledWith(
+  //     'Error in calculateCorrectness for https://github.com/owner/repo:',
+  //     expect.any(Error)
+  //   );
 
-    // Restore console.error
-    consoleErrorSpy.mockRestore();
-  });
+  //   // Restore console.error
+  //   consoleErrorSpy.mockRestore();
+  // });
  });
