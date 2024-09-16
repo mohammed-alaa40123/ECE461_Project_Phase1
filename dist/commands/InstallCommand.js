@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import * as fs from 'fs';
 import { exec } from 'child_process';
-import logger from '../logger';
+import logger from '../logger.js';
 export class InstallCommand {
     static installDependency(dep) {
         return new Promise((resolve, reject) => {

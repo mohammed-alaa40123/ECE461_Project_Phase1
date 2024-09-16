@@ -78,7 +78,7 @@ function calculateLOC(owner, repo) {
                 }
             });
         }
-        if (result.repository.object && result.repository.object.entries) {
+        if (result.data.repository.object && result.data.repository.object.entries) {
             traverseTree(result.repository.object.entries);
         }
         else {

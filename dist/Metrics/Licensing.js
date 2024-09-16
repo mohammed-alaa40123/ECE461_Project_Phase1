@@ -67,7 +67,7 @@ function rateLicense(licenseSpdxId) {
 function checkLicenseCompatibility(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
         const licenseData = yield fetchLicenseInfo(owner, repo);
-        const licenseInfo = licenseData.repository.licenseInfo;
+        const licenseInfo = licenseData.data.repository.licenseInfo;
         if (!licenseInfo) {
             console.log("No license information found for this repository.");
             return;
@@ -77,4 +77,5 @@ function checkLicenseCompatibility(owner, repo) {
         console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
     });
 }
+checkLicenseCompatibility("octokit", "graphql.js").catch(console.error);
 export default checkLicenseCompatibility;

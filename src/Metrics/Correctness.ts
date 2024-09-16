@@ -77,8 +77,8 @@ async function calculateLOC(owner: string, repo: string): Promise<number> {
     });
   }
 
-  if (result.repository.object && result.repository.object.entries) {
-    traverseTree(result.repository.object.entries);
+  if (result.data.repository.object && result.data.repository.object.entries) {
+    traverseTree(result.data.repository.object.entries);
   } else {
     console.error("No entries found in the repository object.");
   }
@@ -90,9 +90,9 @@ async function calculateCorrectness(owner: string, repo: string) {
   const issuesData = await fetchIssues(owner, repo);
   const totalLinesOfCode = await calculateLOC(owner, repo);
 
-  const totalIssues = issuesData.repository.issues.totalCount;
-  const resolvedIssues = issuesData.repository.closedIssues.totalCount;
-  const totalBugs = issuesData.repository.bugIssues.totalCount;
+  const totalIssues = issuesData.data.repository.issues.totalCount;
+  const resolvedIssues = issuesData.data.repository.closedIssues.totalCount;
+  const totalBugs = issuesData.data.repository.bugIssues.totalCount;
 
   const resolvedIssuesRatio = totalIssues > 0 ? resolvedIssues / totalIssues : 1;
   const normalizedBugRatio = totalLinesOfCode > 0 ? totalBugs / totalLinesOfCode : 0;
@@ -100,10 +100,10 @@ async function calculateCorrectness(owner: string, repo: string) {
   // Adjust weights as needed
   const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
 
-  // console.log(`Total Issues: ${totalIssues}`);
-  // console.log(`Resolved Issues: ${resolvedIssues}`);
-  // console.log(`Total Bugs: ${totalBugs}`);
-  // console.log(`Total Lines of Code: ${totalLinesOfCode}`);
+  console.log(`Total Issues: ${totalIssues}`);
+  console.log(`Resolved Issues: ${resolvedIssues}`);
+  console.log(`Total Bugs: ${totalBugs}`);
+  console.log(`Total Lines of Code: ${totalLinesOfCode}`);
   console.log(`Correctness: ${correctness}`);
 }
 export default calculateCorrectness;

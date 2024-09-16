@@ -66,7 +66,7 @@ export class NPM extends API {
     }
 }
 const github = new GitHub("graphql.js", "octokit");
-function functionName() {
+function test() {
     return __awaiter(this, void 0, void 0, function* () {
         let result = yield github.getData(`
         query($owner: String!, $repo: String!) {
@@ -83,8 +83,8 @@ function functionName() {
         }
       }
 `);
-        console.log(result.data.repository.issues.totalCount);
+        return result;
     });
 }
-functionName();
+test();
 export default { GitHub, NPM };
