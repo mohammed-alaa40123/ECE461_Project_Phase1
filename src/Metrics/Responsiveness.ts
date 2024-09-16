@@ -44,10 +44,12 @@ interface PageInfo {
 }
 
 interface QueryResponse {
-  repository: {
-    issues: {
-      edges: Issue[];
-      pageInfo: PageInfo;
+  data: {
+    repository: {
+      issues: {
+        edges: Issue[];
+        pageInfo: PageInfo;
+      };
     };
   };
 }
@@ -64,13 +66,13 @@ async function getIssueResponseTimes(
 
   try {
     while (hasNextPage) {
-      const data: QueryResponse = await git_repo.getData(query, {
+      const result: QueryResponse = await git_repo.getData(query, {
         owner,
         name,
         after: endCursor,
       });
 
-      const issues: Issue[] = data.repository.issues.edges;
+      const issues: Issue[] = result.data.repository.issues.edges;
 
       issues.forEach((issue: Issue) => {
         const createdAt: Date = new Date(issue.node.createdAt);
@@ -84,15 +86,15 @@ async function getIssueResponseTimes(
         }
       });
 
-      hasNextPage = data.repository.issues.pageInfo.hasNextPage;
-      endCursor = data.repository.issues.pageInfo.endCursor;
+      hasNextPage = result.data.repository.issues.pageInfo.hasNextPage;
+      endCursor = result.data.repository.issues.pageInfo.endCursor;
     }
 
     responseTimes.sort((a, b) => a - b);
-    console.log("Sorted response times (in hours):");
-    responseTimes.forEach((time, index) => {
-      console.log(`Response Time ${index + 1}: ${time}`);
-    });
+    // console.log("Sorted response times (in hours):");
+    // responseTimes.forEach((time, index) => {
+    //   console.log(`Response Time ${index + 1}: ${time}`);
+    // });
 
     const totalResponseTime: number = responseTimes.reduce(
       (sum, time) => sum + time,

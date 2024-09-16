@@ -79,7 +79,7 @@ function calculateLOC(owner, repo) {
             });
         }
         if (result.data.repository.object && result.data.repository.object.entries) {
-            traverseTree(result.repository.object.entries);
+            traverseTree(result.data.repository.object.entries);
         }
         else {
             console.error("No entries found in the repository object.");
@@ -91,12 +91,16 @@ function calculateCorrectness(owner, repo) {
     return __awaiter(this, void 0, void 0, function* () {
         const issuesData = yield fetchIssues(owner, repo);
         const totalLinesOfCode = yield calculateLOC(owner, repo);
-        const totalIssues = issuesData.repository.issues.totalCount;
-        const resolvedIssues = issuesData.repository.closedIssues.totalCount;
-        const totalBugs = issuesData.repository.bugIssues.totalCount;
+        const totalIssues = issuesData.data.repository.issues.totalCount;
+        const resolvedIssues = issuesData.data.repository.closedIssues.totalCount;
+        const totalBugs = issuesData.data.repository.bugIssues.totalCount;
         const resolvedIssuesRatio = totalIssues > 0 ? resolvedIssues / totalIssues : 1;
         const normalizedBugRatio = totalLinesOfCode > 0 ? totalBugs / totalLinesOfCode : 0;
         const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
+        console.log(`Total Issues: ${totalIssues}`);
+        console.log(`Resolved Issues: ${resolvedIssues}`);
+        console.log(`Total Bugs: ${totalBugs}`);
+        console.log(`Total Lines of Code: ${totalLinesOfCode}`);
         console.log(`Correctness: ${correctness}`);
     });
 }

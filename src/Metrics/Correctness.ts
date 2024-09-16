@@ -24,7 +24,7 @@ async function fetchIssues(owner: string, repo: string): Promise<any> {
       }
     `;
 
-    const result = await githubRepo.getData(query,null);
+    const result = await githubRepo.getData(query, null);
   return result;
 }
 
