@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { exec } from 'child_process';
-import logger from '../logger.js';
+import logger from '../logger';
 
 export class InstallCommand {
   public static installDependency(dep: string): Promise<void> {
