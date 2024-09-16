@@ -22,3 +22,9 @@
 2024-09-16T01:35:55.713Z [info]: Successfully installed lodash
 2024-09-16T01:36:54.357Z [info]: Successfully installed lodash
 2024-09-16T01:47:46.169Z [info]: Successfully installed lodash
+2024-09-16T01:58:19.506Z [info]: Successfully installed lodash
+2024-09-16T02:02:45.389Z [startup]: Starting dependency installation
+2024-09-16T02:02:47.203Z [info]: Successfully installed typescript
+2024-09-16T02:02:48.568Z [info]: Successfully installed jest
+2024-09-16T02:02:49.805Z [info]: Successfully installed chalk
+2024-09-16T02:02:51.440Z [info]: Successfully installed commander
