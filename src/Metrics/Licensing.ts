@@ -74,7 +74,8 @@ async function checkLicenseCompatibility(owner: string, repo: string) {
 
   // console.log(`License: ${licenseInfo.name}`);
   // console.log(`SPDX ID: ${licenseSpdxId}`);
-  console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
+  // console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
+  return compatibilityScore;
 }
 
 checkLicenseCompatibility("octokit", "graphql.js").catch(console.error);

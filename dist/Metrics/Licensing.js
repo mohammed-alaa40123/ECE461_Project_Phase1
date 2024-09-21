@@ -74,7 +74,7 @@ function checkLicenseCompatibility(owner, repo) {
         }
         const licenseSpdxId = licenseInfo.spdxId;
         const compatibilityScore = rateLicense(licenseSpdxId);
-        console.log(`Compatibility Score with LGPL v2.1: ${compatibilityScore}`);
+        return compatibilityScore;
     });
 }
 checkLicenseCompatibility("octokit", "graphql.js").catch(console.error);

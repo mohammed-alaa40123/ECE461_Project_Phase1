@@ -100,11 +100,12 @@ async function calculateCorrectness(owner: string, repo: string) {
   // Adjust weights as needed
   const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
 
-  console.log(`Total Issues: ${totalIssues}`);
-  console.log(`Resolved Issues: ${resolvedIssues}`);
-  console.log(`Total Bugs: ${totalBugs}`);
-  console.log(`Total Lines of Code: ${totalLinesOfCode}`);
-  console.log(`Correctness: ${correctness}`);
+  // console.log(`Total Issues: ${totalIssues}`);
+  // console.log(`Resolved Issues: ${resolvedIssues}`);
+  // console.log(`Total Bugs: ${totalBugs}`);
+  // console.log(`Total Lines of Code: ${totalLinesOfCode}`);
+  // console.log(`Correctness: ${correctness}`);
+  return correctness;
 }
 export default calculateCorrectness;
 

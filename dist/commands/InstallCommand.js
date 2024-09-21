@@ -12,7 +12,7 @@ import { exec } from 'child_process';
 export class InstallCommand {
     static installDependency(dep) {
         return new Promise((resolve, reject) => {
-            exec(`npm install ${dep}`, (err, stdout, stderr) => {
+            exec(`npm install ${dep}`, (err, stdout) => {
                 if (err) {
                     console.error(`Error installing ${dep}:`, err);
                     reject(err);
@@ -21,7 +21,6 @@ export class InstallCommand {
                 console.log(`Successfully installed ${dep}`);
                 console.log('-----------------------------');
                 console.log(stdout);
-                console.error(stderr);
                 resolve();
             });
         });

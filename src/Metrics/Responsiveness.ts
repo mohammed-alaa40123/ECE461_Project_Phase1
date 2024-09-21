@@ -1,4 +1,4 @@
-import { GitHub } from "../api.ts";
+import { GitHub } from "../api";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
