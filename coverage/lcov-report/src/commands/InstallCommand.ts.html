@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.13% </span>
+                <span class="strong">36.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/37</span>
+                <span class='fraction'>11/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.14% </span>
+                <span class="strong">39.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/35</span>
+                <span class='fraction'>11/28</span>
             </div>
         
             
@@ -116,43 +116,39 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -160,14 +156,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as fs from 'fs';
 import { exec } from 'child_process';
-import logger from '../logger';
+//import logger from '../logger';
 &nbsp;
 export class InstallCommand {
   public static installDependency(dep: string): Promise&lt;void&gt; {
@@ -175,11 +175,11 @@ export class InstallCommand {
       exec(`npm install ${dep}`, (err, stdout, stderr) =&gt; {
         <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
 <span class="cstat-no" title="statement not covered" >          console.error(`Error installing ${dep}:`, err);</span>
-<span class="cstat-no" title="statement not covered" >          logger.error(`Error installing ${dep}:`, err);</span>
+          //logger.error(`Error installing ${dep}:`, err);
 <span class="cstat-no" title="statement not covered" >          reject(err);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
-        logger.info(`Successfully installed ${dep}`);
+        //logger.info(`Successfully installed ${dep}`);
         console.log(`Successfully installed ${dep}`);
         console.log('-----------------------------');
         console.log(stdout);
@@ -190,12 +190,12 @@ export class InstallCommand {
   }
 &nbsp;
   public <span class="fstat-no" title="function not covered" >static </span>async run(): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >    logger.startup('Starting dependency installation');</span>
+    //logger.startup('Starting dependency installation');
 <span class="cstat-no" title="statement not covered" >    console.log('Installing dependencies...');</span>
 <span class="cstat-no" title="statement not covered" >    fs.readFile('userland.txt', 'utf8', <span class="fstat-no" title="function not covered" >async (e</span>rr, data) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span></span>
 <span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error('Error reading userland.txt:', err);</span>
-<span class="cstat-no" title="statement not covered" >        logger.error('Error reading userland.txt:', err);</span>
+        //logger.error('Error reading userland.txt:', err);
 <span class="cstat-no" title="statement not covered" >        process.exit(1);</span>
 <span class="cstat-no" title="statement not covered" >        return;</span>
       }
@@ -207,11 +207,11 @@ export class InstallCommand {
 <span class="cstat-no" title="statement not covered" >          await InstallCommand.installDependency(dep);</span>
         }
 <span class="cstat-no" title="statement not covered" >        console.log('Dependencies installed successfully!');</span>
-<span class="cstat-no" title="statement not covered" >        logger.info('Dependencies installed successfully!');</span>
+        //logger.info('Dependencies installed successfully!');
 <span class="cstat-no" title="statement not covered" >        process.exit(0);</span>
       } catch {
 <span class="cstat-no" title="statement not covered" >        console.error('Error installing dependencies');</span>
-<span class="cstat-no" title="statement not covered" >        logger.error('Error installing dependencies');</span>
+        //logger.error('Error installing dependencies');
 <span class="cstat-no" title="statement not covered" >        process.exit(1);</span>
       }
     });
@@ -223,7 +223,7 @@ export class InstallCommand {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-16T01:58:19.681Z
+                at 2024-09-21T18:48:53.104Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

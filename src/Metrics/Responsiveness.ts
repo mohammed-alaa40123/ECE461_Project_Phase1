@@ -1,4 +1,4 @@
-import { GitHub } from "../api.js";
+import { GitHub } from "../api.ts";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -108,6 +108,8 @@ async function getIssueResponseTimes(
     console.error("Error fetching data from GitHub API:", error);
   }
 }
+
+export { getIssueResponseTimes };
 
 // Example usage
 const owner: string = "octokit"; // Replace with the owner
