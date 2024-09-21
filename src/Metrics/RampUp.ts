@@ -39,7 +39,7 @@ async function calculateAverageTimeForFirstPR(
         after: endCursor,
       });
 
-      const pullRequests = data.repository.pullRequests.edges;
+      const pullRequests = data.data.repository.pullRequests.edges;
 
       pullRequests.forEach((pr: any) => {
         const author = pr.node.author;
@@ -50,8 +50,8 @@ async function calculateAverageTimeForFirstPR(
         }
       });
 
-      hasNextPage = data.repository.pullRequests.pageInfo.hasNextPage;
-      endCursor = data.repository.pullRequests.pageInfo.endCursor;
+      hasNextPage = data.data.repository.pullRequests.pageInfo.hasNextPage;
+      endCursor = data.data.repository.pullRequests.pageInfo.endCursor;
     }
 
     const firstPRDates = Object.values(firstPRTimes);

@@ -42,7 +42,7 @@ async function getCommitsByUser(owner: string, name: string) {
         after: endCursor,
       });
 
-      const commits = data.repository.defaultBranchRef.target.history.edges;
+      const commits = data.data.repository.defaultBranchRef.target.history.edges;
 
       commits.forEach((commit: any) => {
         const author = commit.node.author.user?.login;
@@ -55,9 +55,9 @@ async function getCommitsByUser(owner: string, name: string) {
       });
 
       hasNextPage =
-        data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
+        data.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
       endCursor =
-        data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
+        data.data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
     }
     const commitnumbers: number[] = [];
 

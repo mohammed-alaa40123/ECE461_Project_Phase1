@@ -29,6 +29,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
+    "isomorphic-git": "^1.27.1",
     "lodash": "^4.17.21",
     "node-fetch": "^2.7.0",
     "node-ts": "^6.1.2",
