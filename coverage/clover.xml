@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726954888452" clover="3.2.0">
-  <project timestamp="1726954888452" name="All files">
-    <metrics statements="89" coveredstatements="58" conditionals="4" coveredconditionals="1" methods="17" coveredmethods="11" elements="110" coveredelements="70" complexity="0" loc="89" ncloc="89" packages="3" files="3" classes="3"/>
+<coverage generated="1726955601138" clover="3.2.0">
+  <project timestamp="1726955601138" name="All files">
+    <metrics statements="120" coveredstatements="88" conditionals="22" coveredconditionals="15" methods="23" coveredmethods="17" elements="165" coveredelements="120" complexity="0" loc="120" ncloc="120" packages="3" files="4" classes="4"/>
     <package name="src">
       <metrics statements="33" coveredstatements="20" conditionals="1" coveredconditionals="0" methods="6" coveredmethods="4"/>
       <file name="api.ts" path="/home/mo_alaa/mo/ECE461_Project_Phase1/src/api.ts">
         <metrics statements="33" coveredstatements="20" conditionals="1" coveredconditionals="0" methods="6" coveredmethods="4"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="17" count="5" type="stmt"/>
-        <line num="18" count="5" type="stmt"/>
-        <line num="22" count="5" type="stmt"/>
-        <line num="23" count="5" type="stmt"/>
-        <line num="26" count="5" type="stmt"/>
-        <line num="34" count="5" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
-        <line num="36" count="3" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="9" count="12" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="18" count="12" type="stmt"/>
+        <line num="22" count="12" type="stmt"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="34" count="12" type="stmt"/>
+        <line num="35" count="12" type="stmt"/>
+        <line num="36" count="11" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
@@ -34,15 +34,49 @@
         <line num="58" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="70" count="2" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="88" count="2" type="stmt"/>
-        <line num="92" count="2" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="70" count="3" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="88" count="3" type="stmt"/>
+        <line num="92" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.Metrics">
-      <metrics statements="29" coveredstatements="28" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
+      <metrics statements="60" coveredstatements="58" conditionals="19" coveredconditionals="15" methods="10" coveredmethods="10"/>
+      <file name="Correctness.ts" path="/home/mo_alaa/mo/ECE461_Project_Phase1/src/Metrics/Correctness.ts">
+        <metrics statements="31" coveredstatements="30" conditionals="18" coveredconditionals="14" methods="6" coveredmethods="6"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="64" count="3" type="stmt"/>
+        <line num="66" count="66" type="stmt"/>
+        <line num="70" count="15" type="cond" truecount="0" falsecount="1"/>
+        <line num="71" count="15" type="stmt"/>
+        <line num="72" count="84" type="cond" truecount="5" falsecount="0"/>
+        <line num="73" count="66" type="stmt"/>
+        <line num="74" count="18" type="cond" truecount="4" falsecount="0"/>
+        <line num="75" count="12" type="stmt"/>
+        <line num="80" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="81" count="3" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="90" count="3" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="93" count="3" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="95" count="3" type="stmt"/>
+        <line num="97" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="98" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="101" count="3" type="stmt"/>
+        <line num="108" count="3" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+      </file>
       <file name="Responsiveness.ts" path="/home/mo_alaa/mo/ECE461_Project_Phase1/src/Metrics/Responsiveness.ts">
         <metrics statements="29" coveredstatements="28" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
