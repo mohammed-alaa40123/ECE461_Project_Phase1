@@ -7,16 +7,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export function timeWrapper(fn, label) {
+export function timeWrapper(fn) {
     return function (...args) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.time(label);
+            const start = process.hrtime();
             try {
                 const result = yield fn(...args);
-                return result;
+                const end = process.hrtime(start);
+                const time = end[0] + end[1] / 1e9;
+                const roundedTime = Math.round(time * 1000) / 1000;
+                return { result, time: roundedTime };
             }
-            finally {
-                console.timeEnd(label);
+            catch (error) {
+                const end = process.hrtime(start);
+                const time = end[0] + end[1] / 1e9;
+                const roundedTime = Math.round(time * 1000) / 1000;
+                throw { error, time: roundedTime };
             }
         });
     };

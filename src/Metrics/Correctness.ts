@@ -1,5 +1,5 @@
 // import { resourceLimits } from 'worker_threads';
-import { GitHub } from '../api';
+import { GitHub } from '../api.js';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
   const githubRepo = new GitHub(repo, owner);
@@ -109,4 +109,4 @@ async function calculateCorrectness(owner: string, repo: string) {
 }
 export default calculateCorrectness;
 
-calculateCorrectness("octokit", "graphql.js").catch(console.error);
+calculateCorrectness("lodash", "lodash").catch(console.error);

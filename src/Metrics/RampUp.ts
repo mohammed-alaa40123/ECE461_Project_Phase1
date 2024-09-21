@@ -1,3 +1,4 @@
+// import exp from "constants";
 import { GitHub } from "../api.js";
 
 const query = `
@@ -64,15 +65,15 @@ async function calculateAverageTimeForFirstPR(
     throw error;
   }
 }
-
-// Example usage
-(async () => {
-  const owner = "octokit"; // Replace with the repository owner
-  const name = "graphql.js"; // Replace with the repository name
-  try {
-    const averageTime = await calculateAverageTimeForFirstPR(owner, name);
-    console.log(`Average time for first PR: ${averageTime} ms`);
-  } catch (error) {
-    console.error("Error calculating average time for first PR:", error);
-  }
-})();
+export default  calculateAverageTimeForFirstPR;
+// // Example usage
+// (async () => {
+//   const owner = "octokit"; // Replace with the repository owner
+//   const name = "graphql.js"; // Replace with the repository name
+//   try {
+//     const averageTime = await calculateAverageTimeForFirstPR(owner, name);
+//     // console.log(`Average time for first PR: ${averageTime} ms`);
+//   } catch (error) {
+//     console.error("Error calculating average time for first PR:", error);
+//   }
+// })();

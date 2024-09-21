@@ -70,12 +70,12 @@ function checkLicenseCompatibility(owner, repo) {
         const licenseInfo = licenseData.data.repository.licenseInfo;
         if (!licenseInfo) {
             console.log("No license information found for this repository.");
-            return;
+            return 0;
         }
         const licenseSpdxId = licenseInfo.spdxId;
         const compatibilityScore = rateLicense(licenseSpdxId);
         return compatibilityScore;
     });
 }
-checkLicenseCompatibility("octokit", "graphql.js").catch(console.error);
+checkLicenseCompatibility("lodash", "lodash");
 export default checkLicenseCompatibility;

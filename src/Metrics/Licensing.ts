@@ -60,13 +60,13 @@ function rateLicense(licenseSpdxId: string): number {
   return compatibilityTable[licenseSpdxId] || 0;
 }
 
-async function checkLicenseCompatibility(owner: string, repo: string) {
+async function checkLicenseCompatibility(owner: string, repo: string):Promise<number> {
   const licenseData = await fetchLicenseInfo(owner, repo);
   const licenseInfo = licenseData.data.repository.licenseInfo;
 
   if (!licenseInfo) {
     console.log("No license information found for this repository.");
-    return;
+    return 0;
   }
 
   const licenseSpdxId = licenseInfo.spdxId;
@@ -78,6 +78,6 @@ async function checkLicenseCompatibility(owner: string, repo: string) {
   return compatibilityScore;
 }
 
-checkLicenseCompatibility("octokit", "graphql.js").catch(console.error);
+checkLicenseCompatibility("lodash", "lodash");
 
 export default checkLicenseCompatibility;

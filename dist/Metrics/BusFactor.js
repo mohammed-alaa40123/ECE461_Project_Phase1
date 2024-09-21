@@ -41,6 +41,7 @@ function getCommitsByUser(owner, name) {
         let hasNextPage = true;
         let endCursor = null;
         const userCommits = {};
+        var busfactor = 0;
         try {
             while (hasNextPage) {
                 const data = yield git_repo.getData(query, {
@@ -69,17 +70,11 @@ function getCommitsByUser(owner, name) {
                 commitnumbers.push(commits[1]);
             });
             commitnumbers.sort((a, b) => b - a);
-            console.log("Sorted commit numbers:");
-            commitnumbers.forEach((commits, index) => {
-                console.log(`Commit ${index + 1}: ${commits}`);
-            });
             var sum = 0;
             commitnumbers.forEach((commits) => {
                 sum = sum + commits;
             });
-            console.log("Total commits:", sum);
             var currentsum = 0;
-            var busfactor = 0;
             for (const commits of commitnumbers) {
                 currentsum += commits;
                 busfactor += 1;
@@ -87,13 +82,14 @@ function getCommitsByUser(owner, name) {
                     break;
                 }
             }
-            console.log("Bus factor:", busfactor);
         }
         catch (error) {
             console.error("Error fetching data from GitHub API:", error);
         }
+        return busfactor;
     });
 }
+export default getCommitsByUser;
 const owner = "octokit";
 const name = "graphql.js";
 getCommitsByUser(owner, name);

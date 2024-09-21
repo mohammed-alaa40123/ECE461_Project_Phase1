@@ -1,4 +1,4 @@
-import { GitHub } from "../api";
+import { GitHub } from "../api.js";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -57,7 +57,7 @@ interface QueryResponse {
 async function getIssueResponseTimes(
   owner: string,
   name: string
-): Promise<void> {
+): Promise<any> {
   const git_repo = new GitHub("graphql.js", "octokit");
 
   let hasNextPage: boolean = true;
@@ -102,14 +102,14 @@ async function getIssueResponseTimes(
     );
     const averageResponseTime: number =
       totalResponseTime / responseTimes.length;
-
-    console.log("Responsiveness (in hours):", averageResponseTime);
+      return averageResponseTime;
+    // console.log("Responsiveness (in hours):", averageResponseTime);
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
   }
 }
 
-export { getIssueResponseTimes };
+export default getIssueResponseTimes;
 
 // Example usage
 const owner: string = "octokit"; // Replace with the owner
