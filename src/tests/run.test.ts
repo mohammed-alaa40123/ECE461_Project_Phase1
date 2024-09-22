@@ -1,27 +1,27 @@
 import { InstallCommand } from "../commands/InstallCommand.js";
 
-describe("TestCommand", () => {
-  test("should install a dependency", (done) => {
-    const dependency = "lodash";
+describe("InstallCommand", () => {
+  describe("Successful installation", () => {
+    let result: number | undefined;
 
-    // Capture console output
-    const consoleLogSpy = jest
-      .spyOn(console, "log")
-      .mockImplementation(() => {});
+    beforeAll(async () => {
+      result = await InstallCommand.run("userland.txt");
+    }, 10000); // Increase the timeout to 10 seconds
 
-    // Run the installDependency method
-    InstallCommand.installDependency(dependency)
-      .then(() => {
-        // Verify that the dependency was installed
-        //expect(fs.existsSync(`node_modules/${dependency}`)).toBe(true);
-        expect(consoleLogSpy).toHaveBeenCalledWith(
-          "Successfully installed lodash"
-        );
-        consoleLogSpy.mockRestore();
-        done();
-      })
-      .catch((error) => {
-        done.fail(error);
-      });
-  }, 10000); // Increase the timeout to 10 seconds
+    test("should install dependencies successfully", async () => {
+      expect(result).toBe(0);
+    }, 10000); // Increase the timeout to 10 seconds
+  });
+
+  describe("Error reading file", () => {
+    let result: number | undefined;
+
+    beforeAll(async () => {
+      result = await InstallCommand.run("userlan1d.txt");
+    }, 10000); // Increase the timeout to 10 seconds
+
+    test("should handle error reading file", async () => {
+      expect(result).toBe(undefined);
+    }, 10000); // Increase the timeout to 10 seconds
+  });
 });

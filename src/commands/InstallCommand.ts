@@ -21,31 +21,33 @@ export class InstallCommand {
     });
   }
 
-  public static async run(): Promise<void> {
+  public static async run(file: string): Promise<number | undefined> {
     logger.startup('Starting dependency installation');
     console.log('Installing dependencies...');
-    fs.readFile('userland.txt', 'utf8', async (err, data) => {
-      if (err) {
-        console.error('Error reading userland.txt:', err);
-        logger.error('Error reading userland.txt:', err);
-        process.exit(1);
-        return;
-      }
-
-      const dependencies = data.split('\n').filter(dep => dep.trim() !== '');
-
-      try {
-        for (const dep of dependencies) {
-          await InstallCommand.installDependency(dep);
+    return new Promise((resolve) => {
+      fs.readFile(file, 'utf8', async (err, data) => {
+        if (err) {
+          console.error('Error reading userland.txt:', err);
+          logger.error('Error reading userland.txt:', err);
+          resolve(undefined);
+          return;
         }
-        console.log('Dependencies installed successfully!');
-        logger.info('Dependencies installed successfully!');
-        process.exit(0);
-      } catch {
-        console.error('Error installing dependencies');
-        logger.error('Error installing dependencies');
-        process.exit(1);
-      }
+
+        const dependencies = data.split('\n').filter(dep => dep.trim() !== '');
+
+        try {
+          for (const dep of dependencies) {
+            await InstallCommand.installDependency(dep);
+          }
+          console.log('Dependencies installed successfully!');
+          logger.info('Dependencies installed successfully!');
+          resolve(0);
+        } catch {
+          console.error('Error installing dependencies');
+          logger.error('Error installing dependencies');
+          resolve(undefined);
+        }
+      });
     });
   }
 }

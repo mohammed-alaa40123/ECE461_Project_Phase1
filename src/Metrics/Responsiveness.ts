@@ -125,7 +125,7 @@ export async function getIssueResponseTimes(
   }
 }
 
-export async function getNpmPackageInfo(packageName: string): Promise<void> {
+export async function getNpmPackageInfo(packageName: string): Promise<any> {
   const npm_repo = new NPM(packageName);
 
   try {
@@ -136,7 +136,7 @@ export async function getNpmPackageInfo(packageName: string): Promise<void> {
       const name: string = response
         .split("/")
         [response_splitted.length - 1].split(".")[0];
-      getIssueResponseTimes(owner, name);
+      return await getIssueResponseTimes(owner, name);
     }
   } catch (error) {
     console.error(`Error fetching package info for ${packageName}:`, error);

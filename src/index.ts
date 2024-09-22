@@ -11,7 +11,7 @@ program
   .command('install')
   .description('Install dependencies in userland')
   .action(() => {
-    InstallCommand.run();
+    InstallCommand.run("userland.txt");
   });
 
 program
