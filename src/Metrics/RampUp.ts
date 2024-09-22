@@ -1,5 +1,5 @@
 // import exp from "constants";
-import { GitHub } from "../api.js";
+import { NPM,GitHub } from "../api.js";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -66,6 +66,40 @@ async function calculateAverageTimeForFirstPR(
   }
 }
 export default  calculateAverageTimeForFirstPR;
+
+export async function getNpmRampUp(packageName: string): Promise<Number> {
+  const npm_repo = new NPM(packageName);
+  var owner:string="";
+  var name:string="";
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      const response_splitted = response.split("/");
+      owner = response.split("/")[response_splitted.length - 2];
+      
+       name = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+        
+
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+  var busFactor:number = await calculateAverageTimeForFirstPR(owner, name);
+  return busFactor;
+}
+// // Example usage
+ const owner = "facebook"; // Replace with the repository owner
+ const name = "react"; // Replace with the repository name
+
+ //console.log(getNpmCommitsbyUser(name));
+ (async () => {
+  const busFactor = await calculateAverageTimeForFirstPR(owner, name);
+  console.log(busFactor);
+   const npmBusFactor = await getNpmRampUp(name);
+   console.log(npmBusFactor);
+})();
 // // Example usage
 // (async () => {
 //   const owner = "octokit"; // Replace with the repository owner

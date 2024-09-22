@@ -1,5 +1,5 @@
 // import { resourceLimits } from 'worker_threads';
-import { GitHub } from '../api.js';
+import {NPM, GitHub } from '../api.js';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
   const githubRepo = new GitHub(repo, owner);
@@ -107,6 +107,37 @@ async function calculateCorrectness(owner: string, repo: string) {
   // console.log(`Correctness: ${correctness}`);
   return correctness;
 }
+export async function getNpmCorrectness(packageName: string): Promise<Number> {
+  const npm_repo = new NPM(packageName);
+  var owner:string="";
+  var name:string="";
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      const response_splitted = response.split("/");
+      owner = response.split("/")[response_splitted.length - 2];
+      
+       name = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+        
+
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+  var busFactor:number = await calculateCorrectness(owner, name);
+  return busFactor;
+}
+const owner = "facebook"; // Replace with the repository owner
+ const name = "react"; // Replace with the repository name
+
 export default calculateCorrectness;
+(async () => {
+  const busFactor = await calculateCorrectness(owner, name);
+  console.log(busFactor);
+   const npmBusFactor = await getNpmCorrectness(name);
+   console.log(npmBusFactor);
+})();
 
 // calculateCorrectness("lodash", "lodash").catch(console.error);
