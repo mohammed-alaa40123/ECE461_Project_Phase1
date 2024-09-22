@@ -1,4 +1,4 @@
-import { getIssueResponseTimes,getNpmPackageInfo } from "../Metrics/Responsiveness.js";
+import { getIssueResponseTimes,getNpmResponsiveness } from "../Metrics/Responsiveness.js";
 
 describe("Responsiveness Metrics", () => {
   it("should calculate issue response times", async () => {
@@ -17,7 +17,7 @@ describe("NPM Package Info", () => {
 
     // Spy on getIssueResponseTimes to verify it gets called with correct arguments
 
-    const result = await getNpmPackageInfo(packageName);
+    const result = await getNpmResponsiveness(packageName);
 
     // Verify that getIssueResponseTimes was called with the correct owner and name
     expect(typeof result).toBe("number");

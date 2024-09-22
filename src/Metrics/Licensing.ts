@@ -1,12 +1,13 @@
 import fs from "fs";
 import path from "path";
 import { simpleGit } from "simple-git";
+import { NPM } from '../api.js'; // Replace with the actual NPM library you are using
 
 const git = simpleGit();
 
 const compatibilityTable: { [key: string]: number } = {
   "LGPL-2.1": 1,
-  MIT: 1,
+  "MIT": 1,
   "GPL-3.0": 0,
   "Apache-2.0": 1,
   "BSD-3-Clause": 1,
@@ -16,9 +17,9 @@ const compatibilityTable: { [key: string]: number } = {
   "EPL-1.0": 0,
   "EPL-2.0": 0,
   "CC0-1.0": 1,
-  Unlicense: 1,
-  ISC: 1,
-  Zlib: 1,
+  "Unlicense": 1,
+  "ISC": 1,
+  "Zlib": 1,
   "Artistic-2.0": 1,
   "OFL-1.1": 1,
   "EUPL-1.2": 0,
@@ -98,3 +99,20 @@ async function checkLicenseCompatibility(
   }
 }
 export { checkLicenseCompatibility, determineLicenseScore };
+export async function checkLicenseCompatibilityNPM(packageName: string): Promise<any> {
+  const npm_repo = new NPM(packageName);
+
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      const response_splitted = response.split("/");
+      const owner: string = response.split("/")[response_splitted.length - 2];
+      const name: string = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+      return await checkLicenseCompatibility(owner, name);
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+}

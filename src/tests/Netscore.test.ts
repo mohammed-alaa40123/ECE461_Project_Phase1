@@ -1,4 +1,4 @@
-import calculateMetrics from '../Metrics/Netscore.js';
+import {calculateMetrics} from '../Metrics/Netscore.js';
 
 describe('Netscore Module', () => {
   // Increase the default timeout for this test suite

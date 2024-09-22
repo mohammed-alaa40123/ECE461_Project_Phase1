@@ -117,7 +117,6 @@ export async function getIssueResponseTimes(
       totalResponseTime / responseTimes.length;
 
     const Responsiveness: number = 1 - averageResponseTime / number_of_issues;
-    console.log("Responsiveness:", Responsiveness);
     return Responsiveness;
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
@@ -125,7 +124,7 @@ export async function getIssueResponseTimes(
   }
 }
 
-export async function getNpmPackageInfo(packageName: string): Promise<any> {
+export async function getNpmResponsiveness(packageName: string): Promise<any> {
   const npm_repo = new NPM(packageName);
 
   try {
