@@ -1,5 +1,5 @@
 // import exp from "constants";
-import { GitHub } from "../api.js";
+import { GitHub } from "../api";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -26,7 +26,7 @@ async function calculateAverageTimeForFirstPR(
   owner: string,
   name: string
 ): Promise<number> {
-  const git_repo = new GitHub("graphql.js", "octokit");
+  const git_repo = new GitHub(owner, name);
 
   let hasNextPage = true;
   let endCursor = null;
