@@ -12,7 +12,7 @@ const wrappedCalculateAverageTimeForFirstPR = timeWrapper(calculateAverageTimeFo
 const wrappedGetIssueResponseTimes = timeWrapper(getIssueResponseTimes);
 const wrappedGetCommitsByUser = timeWrapper(getCommitsByUser);
 
-async function calculateMetrics(owner: string, repo: string) {
+async function calculateMetrics(owner: string, repo: string):Promise<any> {
     const correctness = await wrappedCalculateCorrectness(owner, repo);
     // console.log(`Correctness: ${correctness.result}, Time: ${correctness.time}s`);
 
@@ -52,7 +52,7 @@ async function calculateMetrics(owner: string, repo: string) {
         License_Latency: licenseCompatibility.time
     };
 
-    console.log( JSON.stringify(ndjsonOutput) + '\n');
+    return ndjsonOutput;
 }
 export default calculateMetrics ;
 // calculateMetrics("lodash","lodash")
