@@ -1,5 +1,9 @@
-import { exec } from 'child_process';
-export class TestCommand {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TestCommand = void 0;
+// import * as fs from 'fs';
+const child_process_1 = require("child_process");
+class TestCommand {
     static run() {
         console.log('Running tests...');
         this.runTests((testError) => {
@@ -10,7 +14,7 @@ export class TestCommand {
         });
     }
     static runTests(callback) {
-        exec('npm test', (error, stdout, stderr) => {
+        (0, child_process_1.exec)('npm test', (error, stdout, stderr) => {
             if (error) {
                 return callback(`Error running tests: ${stderr}`);
             }
@@ -19,3 +23,4 @@ export class TestCommand {
         });
     }
 }
+exports.TestCommand = TestCommand;

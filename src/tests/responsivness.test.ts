@@ -1,4 +1,4 @@
-import getIssueResponseTimes from '../src/Metrics/Responsiveness';
+import getIssueResponseTimes from '../Metrics/Responsiveness';
 
 describe('Responsiveness Metrics', () => {
   it('should calculate issue response times', async () => {

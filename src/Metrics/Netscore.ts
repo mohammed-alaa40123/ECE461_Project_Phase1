@@ -1,6 +1,6 @@
 import { timeWrapper } from '../timeWrapper.js';
 import calculateCorrectness from '../Metrics/Correctness.js';
-import checkLicenseCompatibility from '../Metrics/Licensing.js';
+import {checkLicenseCompatibility} from '../Metrics/Licensing.js';
 import calculateAverageTimeForFirstPR from '../Metrics/RampUp.js';
 import getIssueResponseTimes from '../Metrics/Responsiveness.js'
 import getCommitsByUser from '../Metrics/BusFactor.js';

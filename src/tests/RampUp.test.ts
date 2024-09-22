@@ -1,4 +1,4 @@
-import  calculateAverageTimeForFirstPR  from '../src/Metrics/RampUp';
+import  calculateAverageTimeForFirstPR  from '../Metrics/RampUp';
 
 
 describe('Ramp Up Module', () => {

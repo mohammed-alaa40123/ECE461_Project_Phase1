@@ -89,4 +89,4 @@ async function checkLicenseCompatibility(owner: string, repo: string): Promise<n
     return 0;
   }
 }
-export default checkLicenseCompatibility;
+export {checkLicenseCompatibility,determineLicenseScore};

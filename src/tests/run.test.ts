@@ -1,4 +1,4 @@
-import { InstallCommand } from '../src/commands/InstallCommand';
+import { InstallCommand } from '../commands/InstallCommand';
 
 describe('TestCommand', () => {
 
