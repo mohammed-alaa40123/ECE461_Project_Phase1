@@ -27,12 +27,13 @@ const query = `
   }
 `;
 
-async function getCommitsByUser(owner: string, name: string) {
+async function getCommitsByUser(owner: string, name: string):Promise<number> {
   const git_repo = new GitHub("graphql.js", "octokit");
 
   let hasNextPage = true;
   let endCursor = null;
   const userCommits: { [key: string]: number } = {};
+  var busfactor: number = 0;
 
   try {
     while (hasNextPage) {
@@ -42,7 +43,7 @@ async function getCommitsByUser(owner: string, name: string) {
         after: endCursor,
       });
 
-      const commits = data.repository.defaultBranchRef.target.history.edges;
+      const commits = data.data.repository.defaultBranchRef.target.history.edges;
 
       commits.forEach((commit: any) => {
         const author = commit.node.author.user?.login;
@@ -55,9 +56,9 @@ async function getCommitsByUser(owner: string, name: string) {
       });
 
       hasNextPage =
-        data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
+        data.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
       endCursor =
-        data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
+        data.data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
     }
     const commitnumbers: number[] = [];
 
@@ -65,17 +66,16 @@ async function getCommitsByUser(owner: string, name: string) {
       commitnumbers.push(commits[1]);
     });
     commitnumbers.sort((a, b) => b - a);
-    console.log("Sorted commit numbers:");
-    commitnumbers.forEach((commits, index) => {
-      console.log(`Commit ${index + 1}: ${commits}`);
-    });
+    // console.log("Sorted commit numbers:");
+    // commitnumbers.forEach((commits, index) => {
+    //   // console.log(`Commit ${index + 1}: ${commits}`);
+    // });
     var sum: number = 0;
     commitnumbers.forEach((commits) => {
       sum = sum + commits;
     });
-    console.log("Total commits:", sum);
+    // console.log("Total commits:", sum);
     var currentsum: number = 0;
-    var busfactor: number = 0;
     for (const commits of commitnumbers) {
       currentsum += commits;
       busfactor += 1;
@@ -83,13 +83,16 @@ async function getCommitsByUser(owner: string, name: string) {
         break;
       }
     }
-    console.log("Bus factor:", busfactor);
+    // console.log("Bus factor:", busfactor);
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
   }
-}
+  return busfactor;
 
-// Example usage
-const owner = "octokit"; // Replace with the repository owner
-const name = "graphql.js"; // Replace with the repository name
-getCommitsByUser(owner, name);
+}
+export default  getCommitsByUser ;
+
+// // Example usage
+// const owner = "octokit"; // Replace with the repository owner
+// const name = "graphql.js"; // Replace with the repository name
+// getCommitsByUser(owner, name);

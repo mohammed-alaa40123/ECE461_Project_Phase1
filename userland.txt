@@ -2,3 +2,5 @@ typescript
 jest
 chalk
 commander
+isomorphic-git
+fs-extra

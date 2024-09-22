@@ -65,6 +65,7 @@ async function getIssueResponseTimes(
 ): Promise<void> {
   const git_repo = new GitHub(name, owner);
 
+
   const responseTimes: number[] = [];
   let number_of_issues: number = 0;
 
@@ -119,18 +120,8 @@ async function getIssueResponseTimes(
       totalResponseTime / responseTimes.length;
 
     const Responsiveness: number = 1 - averageResponseTime / number_of_issues;
-
-    // let Responsiveness: number = 0;
-
-    // if (averageResponseTime < 1) {
-    //   Responsiveness = 1;
-    // } else if (averageResponseTime > 6) {
-    //   Responsiveness = 1;
-    // } else {
-    //   Responsiveness = 1 - averageResponseTime / 6;
-    // }
-
     console.log("Responsiveness:", Responsiveness);
+
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
   }
@@ -162,5 +153,5 @@ const owner: string = "facebook"; // Replace with the owner
 const name: string = "react"; // Replace with the repository name
 
 getIssueResponseTimes(owner, name);
-// console.log("Fetching npm package info...");
 getNpmPackageInfo(name);
+

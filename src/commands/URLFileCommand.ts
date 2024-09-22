@@ -1,9 +1,5 @@
 import * as fs from "fs";
-import { timeWrapper } from "../timeWrapper.js";
-// import { Worker } from "worker_threads";
-import calculateCorrectness from "../Metrics/Correctness.js";
-import checkLicenseCompatibility from "../Metrics/Licensing.js";
-
+import calculateMetrics from "../Metrics/Netscore.js";
 export class URLFileCommand {
   public static async run(file: string): Promise<void> {
     console.log(`Processing URL file: ${file}`);
@@ -19,35 +15,40 @@ export class URLFileCommand {
         .map((url) => url.trim())
         .filter((url) => url !== "");
 
-      const wrappedCalculateCorrectness = timeWrapper(
-        calculateCorrectness,
-        "calculateCorrectness"
-      );
-      const wrappedCheckLicenseCompatibility = timeWrapper(
-        checkLicenseCompatibility,
-        "checkLicenseCompatibility"
-      );
+
 
       for (let url of urls) {
         if (url.includes("github.com")) {
           console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split("github.com/")[1].split("/");
 
-          try {
-            await wrappedCalculateCorrectness(owner, repo);
-          } catch (error) {
-            console.error(`Error in calculateCorrectness for ${url}:`, error);
-          }
+          const result = await  calculateMetrics(owner, repo);
+          console.log(result);
+        }
 
-          try {
-            await wrappedCheckLicenseCompatibility(owner, repo);
-          } catch (error) {
-            console.error(
-              `Error in checkLicenseCompatibility for ${url}:`,
-              error
-            );
-          }
-        } else if (url.includes("npmjs.com")) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        else if (url.includes("npmjs.com")) {
           console.log(`npm package: ${url}`);
           // const packageName = url.split('package/')[1];
 

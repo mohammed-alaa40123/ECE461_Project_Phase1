@@ -1,4 +1,7 @@
-import { createLogger, format, transports } from 'winston';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const winston_1 = require("winston");
+// Define custom log levels
 const customLevels = {
     levels: {
         startup: 0,
@@ -17,14 +20,14 @@ const customLevels = {
         debug: 13
     },
 };
-const logger = createLogger({
+const logger = (0, winston_1.createLogger)({
     levels: customLevels.levels,
-    format: format.combine(format.timestamp(), format.printf(({ timestamp, level, message }) => {
+    format: winston_1.format.combine(winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
         return `${timestamp} [${level}]: ${message}`;
     })),
     transports: [
-        new transports.Console(),
-        new transports.File({ filename: 'application.log' })
+        new winston_1.transports.Console(),
+        new winston_1.transports.File({ filename: 'application.log' })
     ]
 });
-export default logger;
+exports.default = logger;
