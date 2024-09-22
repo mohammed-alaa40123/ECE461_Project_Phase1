@@ -1,4 +1,4 @@
-import { GitHub } from "../api.js";
+import { GitHub, NPM } from "../api.js";
 
 const repo_query = `
   query($owner: String!, $name: String!) {
@@ -136,41 +136,26 @@ async function getIssueResponseTimes(
   }
 }
 
-// async function getNpmPackageInfo(packageName: string): Promise<void> {
-//   const npm_repo = new NPM(packageName);
+async function getNpmPackageInfo(packageName: string): Promise<void> {
+  const npm_repo = new NPM(packageName);
 
-//   try {
-//     const response = await npm_repo.getData();
-//     const responseTimes: number[] = [];
-
-//     // Assuming we have a way to get the response times from the npm registry
-//     // This is a placeholder for the actual implementation
-//     const versions = response.time;
-//     const versionKeys = Object.keys(versions);
-
-//     for (let i = 1; i < versionKeys.length; i++) {
-//       const previousVersionTime = new Date(versions[versionKeys[i - 1]]);
-//       const currentVersionTime = new Date(versions[versionKeys[i]]);
-//       const responseTime =
-//         (currentVersionTime.getTime() - previousVersionTime.getTime()) /
-//         (1000 * 60 * 60); // in hours
-//       responseTimes.push(responseTime);
-//     }
-
-//     responseTimes.sort((a, b) => a - b);
-
-//     const totalResponseTime: number = responseTimes.reduce(
-//       (sum, time) => sum + time,
-//       0
-//     );
-//     const averageResponseTime: number =
-//       totalResponseTime / responseTimes.length;
-
-//     console.log("NPM Package Responsiveness (in hours):", averageResponseTime);
-//   } catch (error) {
-//     console.error(`Error fetching package info for ${packageName}:`, error);
-//   }
-// }
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      console.log(response.split("/"));
+      const response_splitted = response.split("/");
+      const owner: string = response.split("/")[response_splitted.length - 2];
+      console.log(owner);
+      const name: string = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+      console.log(name);
+      getIssueResponseTimes(owner, name);
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+}
 
 // Example usage
 const owner: string = "facebook"; // Replace with the owner
@@ -178,4 +163,4 @@ const name: string = "react"; // Replace with the repository name
 
 getIssueResponseTimes(owner, name);
 // console.log("Fetching npm package info...");
-// getNpmPackageInfo(name);
+getNpmPackageInfo(name);

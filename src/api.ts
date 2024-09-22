@@ -1,5 +1,5 @@
-import axios from 'axios';
-import * as dotenv from 'dotenv';
+import axios from "axios";
+import * as dotenv from "dotenv";
 dotenv.config();
 const env: NodeJS.ProcessEnv = process.env;
 
@@ -19,7 +19,7 @@ export class GitHub extends API {
   }
 
   public async getData(request_string: string, args?: any): Promise<any> {
-    const url = 'https://api.github.com/graphql';
+    const url = "https://api.github.com/graphql";
     const headers = {
       Authorization: `Bearer ${env.GITHUB_TOKEN}`,
     };
@@ -54,8 +54,15 @@ export class NPM extends API {
         throw new Error(`Error fetching package info: ${response.statusText}`);
       }
       const data = await response.json();
+      const latestVersion = data["dist-tags"].latest;
+      const latestVersoinData = data.versions[latestVersion];
+      const gitHubAPI = latestVersoinData.repository.url;
       console.log("Package info fetched successfully");
-      return data;
+      if (gitHubAPI) {
+        return gitHubAPI;
+      } else {
+        throw new Error("No GitHub repository found");
+      }
     } catch (error) {
       console.error("Error fetching package info:", error);
       throw error;
@@ -64,10 +71,10 @@ export class NPM extends API {
 }
 
 // Example usage
-const github = new GitHub( "graphql.js", "octokit");
+const github = new GitHub("graphql.js", "octokit");
 // const npm = new NPM("express");
-async function test (){
-let result:any = await github.getData(`
+async function test() {
+  let result: any = await github.getData(`
         query($owner: String!, $repo: String!) {
         repository(owner: $owner, name: $repo) { 
           issues {
@@ -81,9 +88,9 @@ let result:any = await github.getData(`
           }
         }
       }
-`)
-return result;
-// console.log(result.data.repository.issues.totalCount);
+`);
+  return result;
+  // console.log(result.data.repository.issues.totalCount);
 }
 test();
 // console.log(result.);
