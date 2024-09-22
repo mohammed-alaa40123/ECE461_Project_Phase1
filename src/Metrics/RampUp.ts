@@ -55,8 +55,9 @@ async function calculateAverageTimeForFirstPR(
     }
 
     const firstPRDates = Object.values(firstPRTimes);
-    const totalFirstPRTime = firstPRDates.reduce((acc, time) => acc + time, 0);
-    const averageFirstPRTime = totalFirstPRTime / firstPRDates.length;
+    const least = Math.min(...firstPRDates);
+    const most= Math.max(...firstPRDates);
+    const averageFirstPRTime = least / most;
 
     return averageFirstPRTime;
   } catch (error) {

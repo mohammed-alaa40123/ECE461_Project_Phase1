@@ -83,6 +83,8 @@ async function getCommitsByUser(owner: string, name: string):Promise<number> {
         break;
       }
     }
+    
+    busfactor/=commitnumbers.length;
     // console.log("Bus factor:", busfactor);
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
