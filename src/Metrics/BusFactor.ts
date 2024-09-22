@@ -1,4 +1,4 @@
-import { GitHub } from "../api.js";
+import { GitHub,NPM } from "../api.js";
 const query = `
   query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
@@ -87,12 +87,41 @@ async function getCommitsByUser(owner: string, name: string):Promise<number> {
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
   }
+
   return busfactor;
 
 }
 export default  getCommitsByUser ;
+export async function getNpmCommitsbyUser(packageName: string): Promise<Number> {
+  const npm_repo = new NPM(packageName);
+  var owner:string="";
+  var name:string="";
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      const response_splitted = response.split("/");
+      owner = response.split("/")[response_splitted.length - 2];
+      
+       name = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+        
 
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+  var busFactor:number = await getCommitsByUser(owner, name);
+  return busFactor;
+}
 // // Example usage
-// const owner = "octokit"; // Replace with the repository owner
-// const name = "graphql.js"; // Replace with the repository name
-// getCommitsByUser(owner, name);
+ const owner = "facebook"; // Replace with the repository owner
+ const name = "react"; // Replace with the repository name
+
+ //console.log(getNpmCommitsbyUser(name));
+ (async () => {
+  const busFactor = await getCommitsByUser(owner, name);
+  console.log(busFactor);
+   const npmBusFactor = await getNpmCommitsbyUser(name);
+   console.log(npmBusFactor);
+})();

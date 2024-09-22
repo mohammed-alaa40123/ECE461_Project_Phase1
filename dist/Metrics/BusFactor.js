@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { GitHub } from "../api.js";
+import { GitHub, NPM } from "../api.js";
 const query = `
   query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
@@ -90,3 +90,32 @@ function getCommitsByUser(owner, name) {
     });
 }
 export default getCommitsByUser;
+export function getNpmCommitsbyUser(packageName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const npm_repo = new NPM(packageName);
+        var owner = "";
+        var name = "";
+        try {
+            const response = yield npm_repo.getData();
+            if (response) {
+                const response_splitted = response.split("/");
+                owner = response.split("/")[response_splitted.length - 2];
+                name = response
+                    .split("/")[response_splitted.length - 1].split(".")[0];
+            }
+        }
+        catch (error) {
+            console.error(`Error fetching package info for ${packageName}:`, error);
+        }
+        var busFactor = yield getCommitsByUser(owner, name);
+        return busFactor;
+    });
+}
+const owner = "facebook";
+const name = "react";
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    const busFactor = yield getCommitsByUser(owner, name);
+    console.log(busFactor);
+    const npmBusFactor = yield getNpmCommitsbyUser(name);
+    console.log(npmBusFactor);
+}))();
