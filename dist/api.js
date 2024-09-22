@@ -31,6 +31,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -52,7 +53,7 @@ class GitHub extends API {
     }
     getData(request_string, args) {
         return __awaiter(this, void 0, void 0, function* () {
-            const url = 'https://api.github.com/graphql';
+            const url = "https://api.github.com/graphql";
             const headers = {
                 Authorization: `Bearer ${env.GITHUB_TOKEN}`,
             };
@@ -85,8 +86,16 @@ class NPM extends API {
                     throw new Error(`Error fetching package info: ${response.statusText}`);
                 }
                 const data = yield response.json();
+                const latestVersion = data["dist-tags"].latest;
+                const latestVersoinData = data.versions[latestVersion];
+                const gitHubAPI = latestVersoinData.repository.url;
                 console.log("Package info fetched successfully");
-                return data;
+                if (gitHubAPI) {
+                    return gitHubAPI;
+                }
+                else {
+                    throw new Error("No GitHub repository found");
+                }
             }
             catch (error) {
                 console.error("Error fetching package info:", error);

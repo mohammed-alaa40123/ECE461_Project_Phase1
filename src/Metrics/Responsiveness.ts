@@ -1,9 +1,17 @@
-import { GitHub } from "../api.js";
+import { GitHub, NPM } from "../api.js";
 
-const query = `
-  query($owner: String!, $name: String!, $after: String) {
+const repo_query = `
+  query($owner: String!, $name: String!) {
     repository(owner: $owner, name: $name) {
-      issues(first: 100, after: $after, states: CLOSED) {
+      diskUsage
+    }
+  }
+`;
+
+const issues_query = `
+  query($owner: String!, $name: String!, $first: Int!) {
+    repository(owner: $owner, name: $name) {
+      issues(first: $first, states: CLOSED) {
         edges {
           node {
             createdAt
@@ -16,14 +24,17 @@ const query = `
             }
           }
         }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
       }
     }
   }
 `;
+interface RepoQueryResponse {
+  data: {
+    repository: {
+      diskUsage: number;
+    };
+  };
+}
 
 interface Issue {
   node: {
@@ -38,17 +49,11 @@ interface Issue {
   };
 }
 
-interface PageInfo {
-  hasNextPage: boolean;
-  endCursor: string | null;
-}
-
-interface QueryResponse {
+interface IssueQueryResponse {
   data: {
     repository: {
       issues: {
         edges: Issue[];
-        pageInfo: PageInfo;
       };
     };
   };
@@ -57,44 +62,55 @@ interface QueryResponse {
 async function getIssueResponseTimes(
   owner: string,
   name: string
-): Promise<any> {
-  const git_repo = new GitHub("graphql.js", "octokit");
+): Promise<void> {
+  const git_repo = new GitHub(name, owner);
 
-  let hasNextPage: boolean = true;
-  let endCursor: string | null = null;
+
   const responseTimes: number[] = [];
+  let number_of_issues: number = 0;
 
   try {
-    while (hasNextPage) {
-      const result: QueryResponse = await git_repo.getData(query, {
-        owner,
-        name,
-        after: endCursor,
-      });
+    const repo_result: RepoQueryResponse = await git_repo.getData(repo_query, {
+      owner,
+      name,
+    });
 
-      const issues: Issue[] = result.data.repository.issues.edges;
+    const repoSize: number = repo_result.data.repository.diskUsage / 1024;
 
-      issues.forEach((issue: Issue) => {
-        const createdAt: Date = new Date(issue.node.createdAt);
-        const firstComment = issue.node.comments.edges[0];
-        if (firstComment) {
-          const firstResponseAt: Date = new Date(firstComment.node.createdAt);
-          const responseTime: number =
-            (firstResponseAt.getTime() - createdAt.getTime()) /
-            (1000 * 60 * 60); // in hours
-          responseTimes.push(responseTime);
-        }
-      });
-
-      hasNextPage = result.data.repository.issues.pageInfo.hasNextPage;
-      endCursor = result.data.repository.issues.pageInfo.endCursor;
+    if (repoSize > 100) {
+      number_of_issues = 100;
+    } else if (repoSize > 50) {
+      number_of_issues = 90;
+    } else {
+      number_of_issues = 80;
     }
 
+    console.log(repo_result);
+
+    const issue_result: IssueQueryResponse = await git_repo.getData(
+      issues_query,
+      {
+        owner,
+        name,
+        first: number_of_issues,
+      }
+    );
+    console.log(issue_result);
+    const issues: Issue[] = issue_result.data.repository.issues.edges;
+
+    issues.forEach((issue: Issue) => {
+      const createdAt: Date = new Date(issue.node.createdAt);
+      const firstComment = issue.node.comments.edges[0];
+      if (firstComment) {
+        const firstResponseAt: Date = new Date(firstComment.node.createdAt);
+        const responseTime: number =
+          (firstResponseAt.getTime() - createdAt.getTime()) /
+          (1000 * 60 * 60 * 24 * 30); // in months
+        responseTimes.push(responseTime);
+      }
+    });
+
     responseTimes.sort((a, b) => a - b);
-    // console.log("Sorted response times (in hours):");
-    // responseTimes.forEach((time, index) => {
-    //   console.log(`Response Time ${index + 1}: ${time}`);
-    // });
 
     const totalResponseTime: number = responseTimes.reduce(
       (sum, time) => sum + time,
@@ -102,16 +118,40 @@ async function getIssueResponseTimes(
     );
     const averageResponseTime: number =
       totalResponseTime / responseTimes.length;
-      return averageResponseTime;
-    // console.log("Responsiveness (in hours):", averageResponseTime);
+
+    const Responsiveness: number = 1 - averageResponseTime / number_of_issues;
+    console.log("Responsiveness:", Responsiveness);
+
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
   }
 }
 
-export default getIssueResponseTimes;
+async function getNpmPackageInfo(packageName: string): Promise<void> {
+  const npm_repo = new NPM(packageName);
 
-// // Example usage
-// const owner: string = "octokit"; // Replace with the owner
-// const name: string = "graphql.js"; // Replace with the repository name
-// getIssueResponseTimes(owner, name);
+  try {
+    const response = await npm_repo.getData();
+    if (response) {
+      console.log(response.split("/"));
+      const response_splitted = response.split("/");
+      const owner: string = response.split("/")[response_splitted.length - 2];
+      console.log(owner);
+      const name: string = response
+        .split("/")
+        [response_splitted.length - 1].split(".")[0];
+      console.log(name);
+      getIssueResponseTimes(owner, name);
+    }
+  } catch (error) {
+    console.error(`Error fetching package info for ${packageName}:`, error);
+  }
+}
+
+// Example usage
+const owner: string = "facebook"; // Replace with the owner
+const name: string = "react"; // Replace with the repository name
+
+getIssueResponseTimes(owner, name);
+getNpmPackageInfo(name);
+
