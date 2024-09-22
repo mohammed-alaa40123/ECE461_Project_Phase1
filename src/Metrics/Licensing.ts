@@ -39,17 +39,22 @@ const compatibilityTable: { [key: string]: number } = {
   "CC-BY-NC-ND-4.0": 0,
 };
 
-async function cloneRepository(url: string, dir: string) {
-  // Ensure the directory is empty
+async function clearTmpDirectory(dir: string) {
   if (fs.existsSync(dir)) {
-    fs.rmSync(dir, { recursive: true, force: true });
+      const files = fs.readdirSync(dir);
+      if (files.length > 0) {
+          fs.rmSync(dir, { recursive: true, force: true });
+          fs.mkdirSync(dir, { recursive: true });
+      }
+  } else {
+      fs.mkdirSync(dir, { recursive: true });
   }
-  fs.mkdirSync(dir, { recursive: true });
-
-  // Clone the repository
-  await git.clone(url, dir, ["--depth", "1"]);
 }
 
+async function cloneRepository(url: string, dir: string) {
+  await clearTmpDirectory(dir);
+  await git.clone(url, dir, ['--depth', '1']);
+}
 async function getLicense(dir: string): Promise<string | null> {
   const licenseFilePath = path.join(dir, "LICENSE");
   if (fs.existsSync(licenseFilePath)) {

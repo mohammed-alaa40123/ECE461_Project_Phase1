@@ -13,7 +13,7 @@ export class TestCommand {
   }
 
   private static runTests(callback: (error: string | null) => void): void {
-    exec('npx jest', (error, stdout, stderr) => {
+    exec('npm test', (error, stdout, stderr) => {
       if (error) {
         return callback(`Error running tests: ${stderr}`);
       }

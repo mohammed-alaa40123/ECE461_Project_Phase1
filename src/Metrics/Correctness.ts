@@ -126,18 +126,18 @@ export async function getNpmCorrectness(packageName: string): Promise<Number> {
   } catch (error) {
     console.error(`Error fetching package info for ${packageName}:`, error);
   }
-  var busFactor:number = await calculateCorrectness(owner, name);
-  return busFactor;
+  var correctness:number = await calculateCorrectness(owner, name);
+  return correctness;
 }
-const owner = "facebook"; // Replace with the repository owner
- const name = "react"; // Replace with the repository name
+// const owner = "facebook"; // Replace with the repository owner
+//  const name = "react"; // Replace with the repository name
 
 export default calculateCorrectness;
-(async () => {
-  const busFactor = await calculateCorrectness(owner, name);
-  console.log(busFactor);
-   const npmBusFactor = await getNpmCorrectness(name);
-   console.log(npmBusFactor);
-})();
+// (async () => {
+//   const busFactor = await calculateCorrectness(owner, name);
+//   console.log(busFactor);
+//    const npmBusFactor = await getNpmCorrectness(name);
+//    console.log(npmBusFactor);
+// })();
 
 // calculateCorrectness("lodash", "lodash").catch(console.error);

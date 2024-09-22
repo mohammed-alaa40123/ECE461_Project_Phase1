@@ -144,8 +144,8 @@ export async function getNpmPackageInfo(packageName: string): Promise<void> {
 }
 
 // Example usage
-const owner: string = "facebook"; // Replace with the owner
-const name: string = "react"; // Replace with the repository name
+// const owner: string = "facebook"; // Replace with the owner
+// const name: string = "react"; // Replace with the repository name
 
-getIssueResponseTimes(owner, name);
-getNpmPackageInfo(name);
+// getIssueResponseTimes(owner, name);
+// getNpmPackageInfo(name);

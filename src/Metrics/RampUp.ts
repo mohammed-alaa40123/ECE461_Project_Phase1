@@ -86,20 +86,20 @@ export async function getNpmRampUp(packageName: string): Promise<Number> {
   } catch (error) {
     console.error(`Error fetching package info for ${packageName}:`, error);
   }
-  var busFactor:number = await calculateAverageTimeForFirstPR(owner, name);
-  return busFactor;
+  var rampUP:number = await calculateAverageTimeForFirstPR(owner, name);
+  return rampUP;
 }
 // // Example usage
- const owner = "facebook"; // Replace with the repository owner
- const name = "react"; // Replace with the repository name
+//  const owner = "facebook"; // Replace with the repository owner
+//  const name = "react"; // Replace with the repository name
 
- //console.log(getNpmCommitsbyUser(name));
- (async () => {
-  const busFactor = await calculateAverageTimeForFirstPR(owner, name);
-  console.log(busFactor);
-   const npmBusFactor = await getNpmRampUp(name);
-   console.log(npmBusFactor);
-})();
+//  //console.log(getNpmCommitsbyUser(name));
+//  (async () => {
+//   const busFactor = await calculateAverageTimeForFirstPR(owner, name);
+//   console.log(busFactor);
+//    const npmBusFactor = await getNpmRampUp(name);
+//    console.log(npmBusFactor);
+// })();
 // // Example usage
 // (async () => {
 //   const owner = "octokit"; // Replace with the repository owner

@@ -2,6 +2,7 @@
   "name": "ece461_project_phase1",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohammed-alaa40123/ECE461_Project_Phase1.git"

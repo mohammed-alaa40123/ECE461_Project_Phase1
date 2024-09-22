@@ -20,7 +20,7 @@ url_file_mode() {
 # Function to run the test mode
 test_mode() {
     echo "Running tests..."
-    node src/dist/index.js test
+    npm test
 }
 
 # Check the first argument
