@@ -3,11 +3,6 @@ import {NPM, GitHub } from '../api.js';
 
 async function fetchIssues(owner: string, repo: string): Promise<any> {
   const githubRepo = new GitHub(repo, owner);
-  // let totalBugIssues = 0;
-  // let totalIssues = 0;
-  // let closedIssues = 0;
-  // let titles = [];
-
     const query = `
       query($owner: String!, $repo: String!) {
         repository(owner: $owner, name: $repo) { 
@@ -100,11 +95,6 @@ async function calculateCorrectness(owner: string, repo: string) {
   // Adjust weights as needed
   const correctness = (0.7 * resolvedIssuesRatio) + (0.3 * (1 - normalizedBugRatio));
 
-  // console.log(`Total Issues: ${totalIssues}`);
-  // console.log(`Resolved Issues: ${resolvedIssues}`);
-  // console.log(`Total Bugs: ${totalBugs}`);
-  // console.log(`Total Lines of Code: ${totalLinesOfCode}`);
-  // console.log(`Correctness: ${correctness}`);
   return correctness;
 }
 export async function getNpmCorrectness(packageName: string): Promise<Number> {
@@ -129,15 +119,5 @@ export async function getNpmCorrectness(packageName: string): Promise<Number> {
   var correctness:number = await calculateCorrectness(owner, name);
   return correctness;
 }
-// const owner = "facebook"; // Replace with the repository owner
-//  const name = "react"; // Replace with the repository name
 
 export default calculateCorrectness;
-// (async () => {
-//   const busFactor = await calculateCorrectness(owner, name);
-//   console.log(busFactor);
-//    const npmBusFactor = await getNpmCorrectness(name);
-//    console.log(npmBusFactor);
-// })();
-
-// calculateCorrectness("lodash", "lodash").catch(console.error);

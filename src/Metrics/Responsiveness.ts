@@ -142,10 +142,3 @@ export async function getNpmPackageInfo(packageName: string): Promise<void> {
     console.error(`Error fetching package info for ${packageName}:`, error);
   }
 }
-
-// Example usage
-// const owner: string = "facebook"; // Replace with the owner
-// const name: string = "react"; // Replace with the repository name
-
-// getIssueResponseTimes(owner, name);
-// getNpmPackageInfo(name);

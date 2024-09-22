@@ -114,14 +114,3 @@ export async function getNpmCommitsbyUser(packageName: string): Promise<Number> 
   var busFactor:number = await getCommitsByUser(owner, name);
   return busFactor;
 }
-// // Example usage
- const owner = "facebook"; // Replace with the repository owner
- const name = "react"; // Replace with the repository name
-
- //console.log(getNpmCommitsbyUser(name));
- (async () => {
-  const busFactor = await getCommitsByUser(owner, name);
-  console.log(busFactor);
-   const npmBusFactor = await getNpmCommitsbyUser(name);
-   console.log(npmBusFactor);
-})();

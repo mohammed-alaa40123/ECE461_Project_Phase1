@@ -16,7 +16,6 @@ export class InstallCommand {
         console.log(`Successfully installed ${dep}`);
         console.log('-----------------------------');
         console.log(stdout);
-        // console.error(stderr);
         resolve();
       });
     });

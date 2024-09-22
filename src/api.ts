@@ -69,28 +69,3 @@ export class NPM extends API {
   }
 }
 
-// Example usage
-const github = new GitHub("graphql.js", "octokit");
-// const npm = new NPM("express");
-async function test() {
-  let result: any = await github.getData(`
-        query($owner: String!, $repo: String!) {
-        repository(owner: $owner, name: $repo) { 
-          issues {
-            totalCount
-          }
-          closedIssues: issues(states: CLOSED) {
-            totalCount
-          }
-          bugIssues: issues(first: 5, labels: ["type: bug"]) {
-            totalCount
-          }
-        }
-      }
-`);
-  return result;
-  // console.log(result.data.repository.issues.totalCount);
-}
-test();
-// console.log(result.);
-// npm.getData("").then(result => console.log(result)).catch(error => console.error(error));

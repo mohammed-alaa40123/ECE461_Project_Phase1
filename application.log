@@ -89,3 +89,10 @@
 2024-09-22T17:15:30.970Z [info]: Successfully installed isomorphic-git
 2024-09-22T17:15:33.736Z [info]: Successfully installed fs-extra
 2024-09-22T17:16:30.450Z [info]: Successfully installed lodash
+2024-09-22T17:26:52.192Z [startup]: Starting dependency installation
+2024-09-22T17:26:54.354Z [info]: Successfully installed typescript
+2024-09-22T17:26:56.133Z [info]: Successfully installed jest
+2024-09-22T17:26:58.278Z [info]: Successfully installed chalk
+2024-09-22T17:27:00.581Z [info]: Successfully installed commander
+2024-09-22T17:27:02.925Z [info]: Successfully installed isomorphic-git
+2024-09-22T17:27:05.068Z [info]: Successfully installed fs-extra
