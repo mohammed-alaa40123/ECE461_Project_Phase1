@@ -1,4 +1,4 @@
-import { GitHub } from '../src/api';
+import { GitHub } from '../src/api.js';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
