@@ -66,7 +66,7 @@ async function calculateAverageTimeForFirstPR(
 }
 export default  calculateAverageTimeForFirstPR;
 
-export async function getNpmRampUp(packageName: string): Promise<Number> {
+export async function getNpmRampUp(packageName: string): Promise<number> {
   const npm_repo = new NPM(packageName);
   var owner:string="";
   var name:string="";

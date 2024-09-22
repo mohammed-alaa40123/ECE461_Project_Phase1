@@ -92,7 +92,7 @@ async function getCommitsByUser(owner: string, name: string):Promise<number> {
 
 }
 export default  getCommitsByUser ;
-export async function getNpmCommitsbyUser(packageName: string): Promise<Number> {
+export async function getNpmCommitsbyUser(packageName: string): Promise<number> {
   const npm_repo = new NPM(packageName);
   var owner:string="";
   var name:string="";

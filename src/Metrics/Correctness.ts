@@ -97,7 +97,7 @@ async function calculateCorrectness(owner: string, repo: string) {
 
   return correctness;
 }
-export async function getNpmCorrectness(packageName: string): Promise<Number> {
+export async function getNpmCorrectness(packageName: string): Promise<number> {
   const npm_repo = new NPM(packageName);
   var owner:string="";
   var name:string="";
@@ -121,3 +121,6 @@ export async function getNpmCorrectness(packageName: string): Promise<Number> {
 }
 
 export default calculateCorrectness;
+// getNpmCorrectness("browserify").then((result) => {
+//   console.log(`Correctness: ${result}`);
+// });
