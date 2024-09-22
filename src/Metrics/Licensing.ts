@@ -61,11 +61,11 @@ async function getLicense(dir: string): Promise<string | null> {
 function determineLicenseScore(licenseContent: string): number {
   const lines = licenseContent.split('\n');
   if (lines.length > 1) {
-    const licenseLine = lines[1].trim();
-    console.log(`Detected license line: ${licenseLine}`);
+    const licenseLine = lines[0].trim();
+    // console.log(`Detected license line: ${licenseLine}`);
     for (const [license, score] of Object.entries(compatibilityTable)) {
       if (licenseLine.includes(license)) {
-        console.log(`Detected license type: ${license}`);
+        // console.log(`Detected license type: ${license}`);
         return score;
       }
     }
