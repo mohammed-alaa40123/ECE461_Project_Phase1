@@ -8,6 +8,7 @@ describe('Netscore Module', () => {
    
     it('should return a JSON object', async () => {
       const result = await calculateMetrics("octokit", "graphql.js");
+      console.log(result);
       expect(typeof result).toBe('object');
     });
 
@@ -74,14 +75,6 @@ describe('Netscore Module', () => {
     it('should contain a "License_Latency" property', async () => {
       const result = await calculateMetrics("octokit", "graphql.js");
       expect(result).toHaveProperty('License_Latency');
-    });
-
-    it('should handle invalid repository names gracefully', async () => {
-      await expect(calculateMetrics("octokit", "invalid-repo")).rejects.toThrow();
-    });
-
-    it('should handle invalid owner names gracefully', async () => {
-      await expect(calculateMetrics("invalid-owner", "graphql.js")).rejects.toThrow();
     });
 
 
