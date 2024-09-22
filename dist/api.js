@@ -1,27 +1,3 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -31,14 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NPM = exports.GitHub = void 0;
-const axios_1 = __importDefault(require("axios"));
-const dotenv = __importStar(require("dotenv"));
+import axios from "axios";
+import * as dotenv from "dotenv";
 dotenv.config();
 const env = process.env;
 class API {
@@ -46,7 +16,7 @@ class API {
         this.package_name = name;
     }
 }
-class GitHub extends API {
+export class GitHub extends API {
     constructor(p_name, own_name) {
         super(p_name);
         this.owner_name = own_name;
@@ -62,7 +32,7 @@ class GitHub extends API {
                 variables: Object.assign({ owner: this.owner_name, repo: this.package_name }, args),
             };
             try {
-                const response = yield axios_1.default.post(url, data, { headers });
+                const response = yield axios.post(url, data, { headers });
                 return response.data;
             }
             catch (error) {
@@ -72,8 +42,7 @@ class GitHub extends API {
         });
     }
 }
-exports.GitHub = GitHub;
-class NPM extends API {
+export class NPM extends API {
     constructor(p_name) {
         super(p_name);
     }
@@ -89,7 +58,6 @@ class NPM extends API {
                 const latestVersion = data["dist-tags"].latest;
                 const latestVersoinData = data.versions[latestVersion];
                 const gitHubAPI = latestVersoinData.repository.url;
-                console.log("Package info fetched successfully");
                 if (gitHubAPI) {
                     return gitHubAPI;
                 }
@@ -104,10 +72,7 @@ class NPM extends API {
         });
     }
 }
-exports.NPM = NPM;
-// Example usage
 const github = new GitHub("graphql.js", "octokit");
-// const npm = new NPM("express");
 function test() {
     return __awaiter(this, void 0, void 0, function* () {
         let result = yield github.getData(`
@@ -126,10 +91,6 @@ function test() {
       }
 `);
         return result;
-        // console.log(result.data.repository.issues.totalCount);
     });
 }
 test();
-// console.log(result.);
-// npm.getData("").then(result => console.log(result)).catch(error => console.error(error));
-exports.default = { GitHub, NPM };

@@ -1,5 +1,5 @@
-import  calculateLOC  from '../Metrics/Correctness';
-import  calculateCorrectness  from '../Metrics/Correctness';
+import  calculateLOC  from '../Metrics/Correctness.js';
+import  calculateCorrectness  from '../Metrics/Correctness.js';
 
 describe('Correctness Module', () => {
   describe('calculateLOC', () => {

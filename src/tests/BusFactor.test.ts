@@ -1,4 +1,4 @@
-import  getCommitsByUser  from '../Metrics/BusFactor';
+import  getCommitsByUser  from '../Metrics/BusFactor.js';
 
 
 describe('BusFactor Module', () => {

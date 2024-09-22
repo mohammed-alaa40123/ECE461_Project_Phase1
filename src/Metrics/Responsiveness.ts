@@ -59,12 +59,11 @@ interface IssueQueryResponse {
   };
 }
 
-async function getIssueResponseTimes(
+export async function getIssueResponseTimes(
   owner: string,
   name: string
-): Promise<void> {
+): Promise<number> {
   const git_repo = new GitHub(name, owner);
-
 
   const responseTimes: number[] = [];
   let number_of_issues: number = 0;
@@ -85,8 +84,6 @@ async function getIssueResponseTimes(
       number_of_issues = 80;
     }
 
-    console.log(repo_result);
-
     const issue_result: IssueQueryResponse = await git_repo.getData(
       issues_query,
       {
@@ -95,7 +92,7 @@ async function getIssueResponseTimes(
         first: number_of_issues,
       }
     );
-    console.log(issue_result);
+
     const issues: Issue[] = issue_result.data.repository.issues.edges;
 
     issues.forEach((issue: Issue) => {
@@ -121,26 +118,24 @@ async function getIssueResponseTimes(
 
     const Responsiveness: number = 1 - averageResponseTime / number_of_issues;
     console.log("Responsiveness:", Responsiveness);
-
+    return Responsiveness;
   } catch (error) {
     console.error("Error fetching data from GitHub API:", error);
+    throw error;
   }
 }
 
-async function getNpmPackageInfo(packageName: string): Promise<void> {
+export async function getNpmPackageInfo(packageName: string): Promise<void> {
   const npm_repo = new NPM(packageName);
 
   try {
     const response = await npm_repo.getData();
     if (response) {
-      console.log(response.split("/"));
       const response_splitted = response.split("/");
       const owner: string = response.split("/")[response_splitted.length - 2];
-      console.log(owner);
       const name: string = response
         .split("/")
         [response_splitted.length - 1].split(".")[0];
-      console.log(name);
       getIssueResponseTimes(owner, name);
     }
   } catch (error) {
@@ -154,4 +149,3 @@ const name: string = "react"; // Replace with the repository name
 
 getIssueResponseTimes(owner, name);
 getNpmPackageInfo(name);
-

@@ -57,7 +57,6 @@ export class NPM extends API {
       const latestVersion = data["dist-tags"].latest;
       const latestVersoinData = data.versions[latestVersion];
       const gitHubAPI = latestVersoinData.repository.url;
-      console.log("Package info fetched successfully");
       if (gitHubAPI) {
         return gitHubAPI;
       } else {
@@ -95,5 +94,3 @@ async function test() {
 test();
 // console.log(result.);
 // npm.getData("").then(result => console.log(result)).catch(error => console.error(error));
-
-export default { GitHub, NPM };
