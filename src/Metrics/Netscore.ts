@@ -1,9 +1,9 @@
-import { timeWrapper } from '../timeWrapper.js';
-import calculateCorrectness from '../Metrics/Correctness.js';
-import checkLicenseCompatibility from '../Metrics/Licensing.js';
-import calculateAverageTimeForFirstPR from '../Metrics/RampUp.js';
-import getIssueResponseTimes from '../Metrics/Responsiveness.js';
-import getCommitsByUser from '../Metrics/BusFactor.js';
+import { timeWrapper } from '../timeWrapper';
+import calculateCorrectness from '../Metrics/Correctness';
+import checkLicenseCompatibility from '../Metrics/Licensing';
+import calculateAverageTimeForFirstPR from '../Metrics/RampUp';
+import getIssueResponseTimes from '../Metrics/Responsiveness'
+import getCommitsByUser from '../Metrics/BusFactor';
 
 // Wrap functions with timeWrapper
 const wrappedCalculateCorrectness = timeWrapper(calculateCorrectness);
