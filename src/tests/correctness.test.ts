@@ -1,6 +1,6 @@
 import  calculateLOC  from '../Metrics/Correctness.js';
 import  calculateCorrectness  from '../Metrics/Correctness.js';
-
+import {getNpmCorrectness} from '../Metrics/Correctness.js';
 describe('Correctness Module', () => {
   describe('calculateLOC', () => {
     it('should correctly calculate lines of code', async () => {
@@ -18,3 +18,12 @@ describe('Correctness Module', () => {
     });
   });
 });
+
+describe('calculateNPMCorrectness', () => {
+  it('should correctly calculate correctness score', async () => {
+    const result = await getNpmCorrectness("express");
+    expect(result).toBeGreaterThanOrEqual(0);
+    expect(result).toBeLessThanOrEqual(1);
+  });
+});
+
