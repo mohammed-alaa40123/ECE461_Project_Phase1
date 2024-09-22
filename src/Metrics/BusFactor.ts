@@ -1,4 +1,4 @@
-import { GitHub } from "../api.js";
+import { GitHub } from "../api";
 const query = `
   query($owner: String!, $name: String!, $after: String) {
     repository(owner: $owner, name: $name) {
@@ -92,7 +92,7 @@ async function getCommitsByUser(owner: string, name: string):Promise<number> {
 }
 export default  getCommitsByUser ;
 
-// Example usage
-const owner = "octokit"; // Replace with the repository owner
-const name = "graphql.js"; // Replace with the repository name
-getCommitsByUser(owner, name);
+// // Example usage
+// const owner = "octokit"; // Replace with the repository owner
+// const name = "graphql.js"; // Replace with the repository name
+// getCommitsByUser(owner, name);

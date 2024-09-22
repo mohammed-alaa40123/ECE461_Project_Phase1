@@ -1,4 +1,4 @@
-import { GitHub } from "../api.js";
+import { GitHub } from "../api";
 
 const query = `
   query($owner: String!, $name: String!, $after: String) {
@@ -111,7 +111,7 @@ async function getIssueResponseTimes(
 
 export default getIssueResponseTimes;
 
-// Example usage
-const owner: string = "octokit"; // Replace with the owner
-const name: string = "graphql.js"; // Replace with the repository name
-getIssueResponseTimes(owner, name);
+// // Example usage
+// const owner: string = "octokit"; // Replace with the owner
+// const name: string = "graphql.js"; // Replace with the repository name
+// getIssueResponseTimes(owner, name);

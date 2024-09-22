@@ -55,5 +55,5 @@ async function calculateMetrics(owner: string, repo: string) {
     console.log( JSON.stringify(ndjsonOutput) + '\n');
 }
 export default calculateMetrics ;
-calculateMetrics("lodash","lodash")
+// calculateMetrics("lodash","lodash")
 // console.log(result);

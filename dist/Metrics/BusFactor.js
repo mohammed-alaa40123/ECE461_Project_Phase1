@@ -90,6 +90,3 @@ function getCommitsByUser(owner, name) {
     });
 }
 export default getCommitsByUser;
-const owner = "octokit";
-const name = "graphql.js";
-getCommitsByUser(owner, name);

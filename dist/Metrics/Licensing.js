@@ -77,5 +77,4 @@ function checkLicenseCompatibility(owner, repo) {
         return compatibilityScore;
     });
 }
-checkLicenseCompatibility("lodash", "lodash");
 export default checkLicenseCompatibility;

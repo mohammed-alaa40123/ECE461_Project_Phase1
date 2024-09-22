@@ -78,6 +78,6 @@ async function checkLicenseCompatibility(owner: string, repo: string):Promise<nu
   return compatibilityScore;
 }
 
-checkLicenseCompatibility("lodash", "lodash");
+// checkLicenseCompatibility("lodash", "lodash");
 
 export default checkLicenseCompatibility;
