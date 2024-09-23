@@ -3,6 +3,7 @@
 # Function to run the install mode
 install_mode() {
     echo "Running install mode..."
+    npm install
     node src/dist/index.js install
 }
 

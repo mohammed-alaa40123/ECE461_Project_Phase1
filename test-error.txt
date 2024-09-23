@@ -1,12 +1,11 @@
-PASS src/dist/tests/responsivness.test.js
 PASS src/dist/tests/correctness.test.js
+PASS src/dist/tests/responsivness.test.js
 PASS src/dist/tests/api.test.js
-PASS src/dist/tests/Netscore.test.js (8.993 s)
-PASS src/dist/tests/run.test.js (13.318 s)
+PASS src/dist/tests/run.test.js (10.496 s)
   ● Console
 
     console.log
-      2024-09-23T03:24:53.071Z [startup]: Starting dependency installation
+      2024-09-23T03:36:28.667Z [startup]: Starting dependency installation
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -16,7 +15,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:63:21)
 
     console.log
-      2024-09-23T03:24:55.465Z [info]: Successfully installed typescript
+      2024-09-23T03:36:30.405Z [info]: Successfully installed typescript
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -42,7 +41,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:55:25)
 
     console.log
-      2024-09-23T03:24:57.494Z [info]: Successfully installed jest
+      2024-09-23T03:36:31.997Z [info]: Successfully installed jest
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -58,7 +57,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
 
     console.log
       
-      up to date, audited 618 packages in 2s
+      up to date, audited 618 packages in 1s
       
       61 packages are looking for funding
         run `npm fund` for details
@@ -68,7 +67,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:55:25)
 
     console.log
-      2024-09-23T03:24:59.676Z [info]: Successfully installed chalk
+      2024-09-23T03:36:33.682Z [info]: Successfully installed chalk
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -94,7 +93,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:55:25)
 
     console.log
-      2024-09-23T03:25:01.771Z [info]: Successfully installed commander
+      2024-09-23T03:36:35.209Z [info]: Successfully installed commander
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -110,7 +109,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
 
     console.log
       
-      up to date, audited 618 packages in 2s
+      up to date, audited 618 packages in 1s
       
       61 packages are looking for funding
         run `npm fund` for details
@@ -120,7 +119,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:55:25)
 
     console.log
-      2024-09-23T03:25:03.630Z [info]: Successfully installed isomorphic-git
+      2024-09-23T03:36:36.742Z [info]: Successfully installed isomorphic-git
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -136,7 +135,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
 
     console.log
       
-      up to date, audited 618 packages in 2s
+      up to date, audited 618 packages in 1s
       
       61 packages are looking for funding
         run `npm fund` for details
@@ -146,7 +145,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:55:25)
 
     console.log
-      2024-09-23T03:25:05.331Z [info]: Successfully installed fs-extra
+      2024-09-23T03:36:38.188Z [info]: Successfully installed fs-extra
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
@@ -162,7 +161,7 @@ PASS src/dist/tests/run.test.js (13.318 s)
 
     console.log
       
-      up to date, audited 618 packages in 2s
+      up to date, audited 618 packages in 1s
       
       61 packages are looking for funding
         run `npm fund` for details
@@ -177,8 +176,17 @@ PASS src/dist/tests/run.test.js (13.318 s)
       at log (src/dist/commands/InstallCommand.js:77:33)
 
     console.log
-      2024-09-23T03:25:05.334Z [info]: Dependencies installed successfully!
+      2024-09-23T03:36:38.190Z [info]: Dependencies installed successfully!
 
       at Console.log (node_modules/winston/lib/winston/transports/console.js:87:23)
 
-PASS src/dist/tests/RampUp.test.js (13.803 s)
+PASS src/dist/tests/Netscore.test.js (11.508 s)
+PASS src/dist/tests/RampUp.test.js (13.443 s)
+PASS src/dist/tests/Licensing.test.js (30.441 s)
+PASS src/dist/tests/BusFactor.test.js (30.862 s)
+
+Test Suites: 8 passed, 8 total
+Tests:       27 passed, 27 total
+Snapshots:   0 total
+Time:        31.325 s, estimated 34 s
+Ran all test suites.
