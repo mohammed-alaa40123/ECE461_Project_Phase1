@@ -3,38 +3,26 @@ import { createLogger, format, transports, Logger as WinstonLogger } from 'winst
 // Define custom log levels
 const customLevels = {
   levels: {
-    startup: 0,
-    error: 1,
-    warn: 2,
-    dataChange: 3,
-    request: 4,
-    stateChange: 5,
-    userInteraction: 6,
-    risk: 7,
-    wait: 8,
-    progress: 9,
-    branch: 10,
-    summary: 11,
-    info: 12,
-    debug: 13
+    silent: 0,
+    info: 1,
+    debug: 2,
   },
 };
 
-interface CustomLogger extends WinstonLogger {
-  startup: (message: string) => void;
-  dataChange: (message: string) => void;
-  request: (message: string) => void;
-  stateChange: (message: string) => void;
-  userInteraction: (message: string) => void;
-  risk: (message: string) => void;
-  wait: (message: string) => void;
-  progress: (message: string) => void;
-  branch: (message: string) => void;
-  summary: (message: string) => void;
-}
+// Read environment variables
+const logFile = process.env.LOG_FILE || 'application.log';
+const logLevel: keyof typeof levelMap = process.env.LOG_LEVEL as keyof typeof levelMap || '0';
 
-const logger: CustomLogger = createLogger({
+// Map log level to custom levels
+const levelMap = {
+  '0': 'silent',
+  '1': 'info',
+  '2': 'debug',
+};
+
+const logger: WinstonLogger = createLogger({
   levels: customLevels.levels,
+  level: levelMap[logLevel] || 'silent',
   format: format.combine(
     format.timestamp(),
     format.printf(({ timestamp, level, message }) => {
@@ -43,8 +31,8 @@ const logger: CustomLogger = createLogger({
   ),
   transports: [
     new transports.Console(),
-    new transports.File({ filename: 'application.log' })
+    new transports.File({ filename: logFile })
   ]
-}) as CustomLogger;
+});
 
 export default logger;

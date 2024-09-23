@@ -22,7 +22,7 @@ export class InstallCommand {
   }
 
   public static async run(file: string): Promise<number | undefined> {
-    logger.startup('Starting dependency installation');
+    logger.info('Starting dependency installation');
     console.log('Installing dependencies...');
     return new Promise((resolve) => {
       fs.readFile(file, 'utf8', async (err, data) => {

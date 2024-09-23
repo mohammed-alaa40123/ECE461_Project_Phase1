@@ -1,12 +1,15 @@
 import { spawn } from 'child_process';
 import * as fs from 'fs';
+import logger from '../logger';
 
 export class TestCommand {
   public static run(): void {
     console.log('Running tests...');
+    logger.info('Running tests...');
     this.runTests((testError) => {
       if (testError) {
         console.error('Error running tests:', testError);
+        logger.error('Error running tests:', testError);
         process.exit(1); // Exit with a non-zero status code to indicate failure
       } else {
         process.exit(0); // Exit with a zero status code to indicate success
