@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 export class TestCommand {
   public static run(): void {
-    console.log('Running tests...');
+    // console.log('Running tests...');
     this.runTests((testError) => {
       if (testError) {
         console.error('Error running tests:', testError);
