@@ -1,10 +1,2319 @@
 PASS src/dist/tests/api.test.js
 PASS src/dist/tests/correctness.test.js
 PASS src/dist/tests/responsivness.test.js
-PASS src/dist/tests/RampUp.test.js (14.686 s)
+PASS src/dist/tests/BusFactor.test.js (7.691 s)
+  ● Console
 
-Test Suites: 4 passed, 4 total
-Tests:       8 passed, 8 total
+    console.error
+      Error fetching package info: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            write: [Function: writeAfterFIN],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 729,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3383,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC71:27B52F:10BC711:1F722E1:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC71:27B52F:10BC711:1F722E1:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      66 |             }
+      67 |             catch (error) {
+    > 68 |                 console.error("Error fetching package info:", error);
+         |                         ^
+      69 |                 throw error;
+      70 |             }
+      71 |         });
+
+      at GitHub.error (src/dist/api.js:68:25)
+      at call (src/dist/api.js:2:1)
+      at Generator.tryCatch (src/dist/api.js:2:1)
+      at Generator._invoke [as throw] (src/dist/api.js:2:1)
+      at rejected (src/dist/api.js:29:65)
+
+    console.error
+      Error fetching data from GitHub API: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            write: [Function: writeAfterFIN],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 729,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3383,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC71:27B52F:10BC711:1F722E1:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC71:27B52F:10BC711:1F722E1:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      89 |         }
+      90 |         catch (error) {
+    > 91 |             console.error("Error fetching data from GitHub API:", error);
+         |                     ^
+      92 |         }
+      93 |         return busfactor;
+      94 |     });
+
+      at error (src/dist/Metrics/BusFactor.js:91:21)
+      at call (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator.tryCatch (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator._invoke [as throw] (src/dist/Metrics/BusFactor.js:2:1)
+      at rejected (src/dist/Metrics/BusFactor.js:6:65)
+
+PASS src/dist/tests/Licensing.test.js (7.774 s)
+  ● Console
+
+    console.error
+      Error fetching package info: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 773,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3384,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC73:11B5EC:106C508:1EEF3FF:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC73:11B5EC:106C508:1EEF3FF:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      66 |             }
+      67 |             catch (error) {
+    > 68 |                 console.error("Error fetching package info:", error);
+         |                         ^
+      69 |                 throw error;
+      70 |             }
+      71 |         });
+
+      at GitHub.error (src/dist/api.js:68:25)
+      at call (src/dist/api.js:2:1)
+      at Generator.tryCatch (src/dist/api.js:2:1)
+      at Generator._invoke [as throw] (src/dist/api.js:2:1)
+      at rejected (src/dist/api.js:29:65)
+
+    console.error
+      Error fetching data from GitHub API: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 773,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3384,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC73:11B5EC:106C508:1EEF3FF:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"expressjs","repo":"graphql.js","name":"express","after":"344b022fc7ed95cf07b46e097935e61151fd585f 499"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC73:11B5EC:106C508:1EEF3FF:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      89 |         }
+      90 |         catch (error) {
+    > 91 |             console.error("Error fetching data from GitHub API:", error);
+         |                     ^
+      92 |         }
+      93 |         return busfactor;
+      94 |     });
+
+      at error (src/dist/Metrics/BusFactor.js:91:21)
+      at call (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator.tryCatch (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator._invoke [as throw] (src/dist/Metrics/BusFactor.js:2:1)
+      at rejected (src/dist/Metrics/BusFactor.js:6:65)
+
+PASS src/dist/tests/Netscore.test.js (7.942 s)
+  ● Console
+
+    console.error
+      Error fetching package info: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"octokit","repo":"graphql.js","name":"graphql.js","after":"dae781b027c19bcd458577cd9ac6ca888b2fdfeb 99"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 527,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3385,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC75:27B52F:10BC7D1:1F72436:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"octokit","repo":"graphql.js","name":"graphql.js","after":"dae781b027c19bcd458577cd9ac6ca888b2fdfeb 99"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC75:27B52F:10BC7D1:1F72436:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      66 |             }
+      67 |             catch (error) {
+    > 68 |                 console.error("Error fetching package info:", error);
+         |                         ^
+      69 |                 throw error;
+      70 |             }
+      71 |         });
+
+      at GitHub.error (src/dist/api.js:68:25)
+      at call (src/dist/api.js:2:1)
+      at Generator.tryCatch (src/dist/api.js:2:1)
+      at Generator._invoke [as throw] (src/dist/api.js:2:1)
+      at rejected (src/dist/api.js:29:65)
+
+    console.error
+      Error fetching data from GitHub API: AxiosError {
+        message: 'Request failed with status code 403',
+        name: 'AxiosError',
+        code: 'ERR_BAD_REQUEST',
+        config: {
+          transitional: {
+            silentJSONParsing: true,
+            forcedJSONParsing: true,
+            clarifyTimeoutError: false
+          },
+          adapter: [ 'xhr', 'http', 'fetch' ],
+          transformRequest: [ [Function: transformRequest] ],
+          transformResponse: [ [Function: transformResponse] ],
+          timeout: 0,
+          xsrfCookieName: 'XSRF-TOKEN',
+          xsrfHeaderName: 'X-XSRF-TOKEN',
+          maxContentLength: -1,
+          maxBodyLength: -1,
+          env: { FormData: [Function], Blob: [class Blob] },
+          validateStatus: [Function: validateStatus],
+          headers: Object [AxiosHeaders] {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer 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',
+            'User-Agent': 'axios/1.7.7',
+            'Content-Length': '738',
+            'Accept-Encoding': 'gzip, compress, deflate, br'
+          },
+          method: 'post',
+          url: 'https://api.github.com/graphql',
+          data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"octokit","repo":"graphql.js","name":"graphql.js","after":"dae781b027c19bcd458577cd9ac6ca888b2fdfeb 99"}}'
+        },
+        request: <ref *1> ClientRequest {
+          _events: [Object: null prototype] {
+            abort: [Function (anonymous)],
+            aborted: [Function (anonymous)],
+            connect: [Function (anonymous)],
+            error: [Function (anonymous)],
+            socket: [Function (anonymous)],
+            timeout: [Function (anonymous)],
+            finish: [Function: requestOnFinish]
+          },
+          _eventsCount: 7,
+          _maxListeners: undefined,
+          outputData: [],
+          outputSize: 0,
+          writable: true,
+          destroyed: true,
+          _last: true,
+          chunkedEncoding: false,
+          shouldKeepAlive: false,
+          maxRequestsOnConnectionReached: false,
+          _defaultKeepAlive: true,
+          useChunkedEncodingByDefault: true,
+          sendDate: false,
+          _removedConnection: false,
+          _removedContLen: false,
+          _removedTE: false,
+          strictContentLength: false,
+          _contentLength: '738',
+          _hasBody: true,
+          _trailer: '',
+          finished: true,
+          _headerSent: true,
+          _closed: true,
+          socket: TLSSocket {
+            _tlsOptions: [Object],
+            _secureEstablished: true,
+            _securePending: false,
+            _newSessionPending: false,
+            _controlReleased: true,
+            secureConnecting: false,
+            _SNICallback: null,
+            servername: 'api.github.com',
+            alpnProtocol: false,
+            authorized: true,
+            authorizationError: null,
+            encrypted: true,
+            _events: [Object: null prototype],
+            _eventsCount: 9,
+            connecting: false,
+            _hadError: false,
+            _parent: null,
+            _host: 'api.github.com',
+            _closeAfterHandlingError: false,
+            _readableState: [ReadableState],
+            _maxListeners: undefined,
+            _writableState: [WritableState],
+            allowHalfOpen: false,
+            _sockname: null,
+            _pendingData: null,
+            _pendingEncoding: '',
+            server: undefined,
+            _server: null,
+            ssl: null,
+            _requestCert: true,
+            _rejectUnauthorized: true,
+            parser: null,
+            _httpMessage: [Circular *1],
+            [Symbol(alpncallback)]: null,
+            [Symbol(res)]: null,
+            [Symbol(verified)]: true,
+            [Symbol(pendingSession)]: null,
+            [Symbol(async_id_symbol)]: 527,
+            [Symbol(kHandle)]: null,
+            [Symbol(lastWriteQueueSize)]: 0,
+            [Symbol(timeout)]: null,
+            [Symbol(kBuffer)]: null,
+            [Symbol(kBufferCb)]: null,
+            [Symbol(kBufferGen)]: null,
+            [Symbol(kCapture)]: false,
+            [Symbol(kSetNoDelay)]: false,
+            [Symbol(kSetKeepAlive)]: true,
+            [Symbol(kSetKeepAliveInitialDelay)]: 60,
+            [Symbol(kBytesRead)]: 3385,
+            [Symbol(kBytesWritten)]: 1036,
+            [Symbol(connect-options)]: [Object]
+          },
+          _header: 'POST /graphql HTTP/1.1\r\n' +
+            'Accept: application/json, text/plain, */*\r\n' +
+            'Content-Type: application/json\r\n' +
+            'Authorization: Bearer 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\r\n' +
+            'User-Agent: axios/1.7.7\r\n' +
+            'Content-Length: 738\r\n' +
+            'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+            'Host: api.github.com\r\n' +
+            'Connection: close\r\n' +
+            '\r\n',
+          _keepAliveTimeout: 0,
+          _onPendingData: [Function: nop],
+          agent: Agent {
+            _events: [Object: null prototype],
+            _eventsCount: 2,
+            _maxListeners: undefined,
+            defaultPort: 443,
+            protocol: 'https:',
+            options: [Object: null prototype],
+            requests: [Object: null prototype] {},
+            sockets: [Object: null prototype] {},
+            freeSockets: [Object: null prototype] {},
+            keepAliveMsecs: 1000,
+            keepAlive: false,
+            maxSockets: Infinity,
+            maxFreeSockets: 256,
+            scheduling: 'lifo',
+            maxTotalSockets: Infinity,
+            totalSocketCount: 0,
+            maxCachedSessions: 100,
+            _sessionCache: [Object],
+            [Symbol(kCapture)]: false
+          },
+          socketPath: undefined,
+          method: 'POST',
+          maxHeaderSize: undefined,
+          insecureHTTPParser: undefined,
+          joinDuplicateHeaders: undefined,
+          path: '/graphql',
+          _ended: true,
+          res: IncomingMessage {
+            _readableState: [ReadableState],
+            _events: [Object: null prototype],
+            _eventsCount: 4,
+            _maxListeners: undefined,
+            socket: [TLSSocket],
+            httpVersionMajor: 1,
+            httpVersionMinor: 1,
+            httpVersion: '1.1',
+            complete: true,
+            rawHeaders: [Array],
+            rawTrailers: [],
+            joinDuplicateHeaders: undefined,
+            aborted: false,
+            upgrade: false,
+            url: '',
+            method: null,
+            statusCode: 403,
+            statusMessage: 'Forbidden',
+            client: [TLSSocket],
+            _consuming: false,
+            _dumped: false,
+            req: [Circular *1],
+            responseUrl: 'https://api.github.com/graphql',
+            redirects: [],
+            [Symbol(kCapture)]: false,
+            [Symbol(kHeaders)]: [Object],
+            [Symbol(kHeadersCount)]: 36,
+            [Symbol(kTrailers)]: null,
+            [Symbol(kTrailersCount)]: 0
+          },
+          aborted: false,
+          timeoutCb: null,
+          upgradeOrConnect: false,
+          parser: null,
+          maxHeadersCount: null,
+          reusedSocket: false,
+          host: 'api.github.com',
+          protocol: 'https:',
+          _redirectable: Writable {
+            _writableState: [WritableState],
+            _events: [Object: null prototype],
+            _eventsCount: 3,
+            _maxListeners: undefined,
+            _options: [Object],
+            _ended: true,
+            _ending: true,
+            _redirectCount: 0,
+            _redirects: [],
+            _requestBodyLength: 738,
+            _requestBodyBuffers: [],
+            _onNativeResponse: [Function (anonymous)],
+            _currentRequest: [Circular *1],
+            _currentUrl: 'https://api.github.com/graphql',
+            [Symbol(kCapture)]: false
+          },
+          [Symbol(kCapture)]: false,
+          [Symbol(kBytesWritten)]: 0,
+          [Symbol(kNeedDrain)]: false,
+          [Symbol(corked)]: 0,
+          [Symbol(kOutHeaders)]: [Object: null prototype] {
+            accept: [Array],
+            'content-type': [Array],
+            authorization: [Array],
+            'user-agent': [Array],
+            'content-length': [Array],
+            'accept-encoding': [Array],
+            host: [Array]
+          },
+          [Symbol(errored)]: null,
+          [Symbol(kHighWaterMark)]: 16384,
+          [Symbol(kRejectNonStandardBodyWrites)]: false,
+          [Symbol(kUniqueHeaders)]: null
+        },
+        response: {
+          status: 403,
+          statusText: 'Forbidden',
+          headers: Object [AxiosHeaders] {
+            date: 'Mon, 23 Sep 2024 00:51:39 GMT',
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': '60',
+            'access-control-expose-headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset',
+            'access-control-allow-origin': '*',
+            'x-github-media-type': 'github.v4; format=json',
+            'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+            'x-frame-options': 'deny',
+            'x-content-type-options': 'nosniff',
+            'x-xss-protection': '0',
+            'referrer-policy': 'origin-when-cross-origin, strict-origin-when-cross-origin',
+            'content-security-policy': "default-src 'none'; base-uri 'self'; child-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com secured-user-images.githubusercontent.com/ user-images.githubusercontent.com/ private-user-images.githubusercontent.com opengraph.githubassets.com github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com objects-origin.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com/ secured-user-images.githubusercontent.com/ private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.com/assets-cdn/worker/ github.com/webpack/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+            vary: 'Accept-Encoding, Accept, X-Requested-With',
+            'transfer-encoding': 'chunked',
+            'x-github-request-id': 'AC75:27B52F:10BC7D1:1F72436:66F0BB9B',
+            server: 'github.com',
+            connection: 'close'
+          },
+          config: {
+            transitional: [Object],
+            adapter: [Array],
+            transformRequest: [Array],
+            transformResponse: [Array],
+            timeout: 0,
+            xsrfCookieName: 'XSRF-TOKEN',
+            xsrfHeaderName: 'X-XSRF-TOKEN',
+            maxContentLength: -1,
+            maxBodyLength: -1,
+            env: [Object],
+            validateStatus: [Function: validateStatus],
+            headers: [Object [AxiosHeaders]],
+            method: 'post',
+            url: 'https://api.github.com/graphql',
+            data: '{"query":"\\n  query($owner: String!, $name: String!, $after: String) {\\n    repository(owner: $owner, name: $name) {\\n      defaultBranchRef {\\n        target {\\n          ... on Commit {\\n            history(first: 100, after: $after) {\\n              edges {\\n                node {\\n                  author {\\n                    user {\\n                      login\\n                    }\\n                  }\\n                }\\n              }\\n              pageInfo {\\n                hasNextPage\\n                endCursor\\n              }\\n            }\\n          }\\n        }\\n      }\\n    }\\n  }\\n","variables":{"owner":"octokit","repo":"graphql.js","name":"graphql.js","after":"dae781b027c19bcd458577cd9ac6ca888b2fdfeb 99"}}'
+          },
+          request: <ref *1> ClientRequest {
+            _events: [Object: null prototype],
+            _eventsCount: 7,
+            _maxListeners: undefined,
+            outputData: [],
+            outputSize: 0,
+            writable: true,
+            destroyed: true,
+            _last: true,
+            chunkedEncoding: false,
+            shouldKeepAlive: false,
+            maxRequestsOnConnectionReached: false,
+            _defaultKeepAlive: true,
+            useChunkedEncodingByDefault: true,
+            sendDate: false,
+            _removedConnection: false,
+            _removedContLen: false,
+            _removedTE: false,
+            strictContentLength: false,
+            _contentLength: '738',
+            _hasBody: true,
+            _trailer: '',
+            finished: true,
+            _headerSent: true,
+            _closed: true,
+            socket: [TLSSocket],
+            _header: 'POST /graphql HTTP/1.1\r\n' +
+              'Accept: application/json, text/plain, */*\r\n' +
+              'Content-Type: application/json\r\n' +
+              'Authorization: Bearer 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\r\n' +
+              'User-Agent: axios/1.7.7\r\n' +
+              'Content-Length: 738\r\n' +
+              'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+              'Host: api.github.com\r\n' +
+              'Connection: close\r\n' +
+              '\r\n',
+            _keepAliveTimeout: 0,
+            _onPendingData: [Function: nop],
+            agent: [Agent],
+            socketPath: undefined,
+            method: 'POST',
+            maxHeaderSize: undefined,
+            insecureHTTPParser: undefined,
+            joinDuplicateHeaders: undefined,
+            path: '/graphql',
+            _ended: true,
+            res: [IncomingMessage],
+            aborted: false,
+            timeoutCb: null,
+            upgradeOrConnect: false,
+            parser: null,
+            maxHeadersCount: null,
+            reusedSocket: false,
+            host: 'api.github.com',
+            protocol: 'https:',
+            _redirectable: [Writable],
+            [Symbol(kCapture)]: false,
+            [Symbol(kBytesWritten)]: 0,
+            [Symbol(kNeedDrain)]: false,
+            [Symbol(corked)]: 0,
+            [Symbol(kOutHeaders)]: [Object: null prototype],
+            [Symbol(errored)]: null,
+            [Symbol(kHighWaterMark)]: 16384,
+            [Symbol(kRejectNonStandardBodyWrites)]: false,
+            [Symbol(kUniqueHeaders)]: null
+          },
+          data: {
+            documentation_url: 'https://docs.github.com/free-pro-team@latest/rest/overview/rate-limits-for-the-rest-api#about-secondary-rate-limits',
+            message: 'You have exceeded a secondary rate limit. Please wait a few minutes before you try again. If you reach out to GitHub Support for help, please include the request ID AC75:27B52F:10BC7D1:1F72436:66F0BB9B.'
+          }
+        },
+        status: 403
+      }
+
+      89 |         }
+      90 |         catch (error) {
+    > 91 |             console.error("Error fetching data from GitHub API:", error);
+         |                     ^
+      92 |         }
+      93 |         return busfactor;
+      94 |     });
+
+      at error (src/dist/Metrics/BusFactor.js:91:21)
+      at call (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator.tryCatch (src/dist/Metrics/BusFactor.js:2:1)
+      at Generator._invoke [as throw] (src/dist/Metrics/BusFactor.js:2:1)
+      at rejected (src/dist/Metrics/BusFactor.js:6:65)
+
+PASS src/dist/tests/run.test.js (14.59 s)
+  ● Console
+
+    console.log
+      Installing dependencies...
+
+      at log (src/dist/commands/InstallCommand.js:63:21)
+
+    console.log
+      Successfully installed typescript
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Successfully installed jest
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Successfully installed chalk
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Successfully installed commander
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Successfully installed isomorphic-git
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Successfully installed fs-extra
+
+      at log (src/dist/commands/InstallCommand.js:53:25)
+
+    console.log
+      -----------------------------
+
+      at log (src/dist/commands/InstallCommand.js:54:25)
+
+    console.log
+      
+      up to date, audited 618 packages in 2s
+      
+      61 packages are looking for funding
+        run `npm fund` for details
+      
+      found 0 vulnerabilities
+
+      at log (src/dist/commands/InstallCommand.js:55:25)
+
+    console.log
+      Dependencies installed successfully!
+
+      at log (src/dist/commands/InstallCommand.js:77:33)
+
+
+Test Suites: 7 passed, 7 total
+Tests:       25 passed, 25 total
 Snapshots:   0 total
-Time:        15.119 s
+Time:        15.248 s, estimated 33 s
 Ran all test suites.

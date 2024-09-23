@@ -1,23 +1,21 @@
 import { spawn } from 'child_process';
 import * as fs from 'fs';
-import logger from '../logger';
 
 export class TestCommand {
   public static run(): void {
     console.log('Running tests...');
-    logger.info('Running tests...');
-    this.runTests((testError) => {
+    this.runTests((testError, formattedOutput) => {
       if (testError) {
         console.error('Error running tests:', testError);
-        logger.error('Error running tests:', testError);
         process.exit(1); // Exit with a non-zero status code to indicate failure
       } else {
+        console.log(formattedOutput); // Output the formatted result
         process.exit(0); // Exit with a zero status code to indicate success
       }
     });
   }
 
-  private static runTests(callback: (error: string | null) => void): void {
+  private static runTests(callback: (error: string | null, output?: string) => void): void {
     const testProcess = spawn('npx', ['jest', '--coverage', '--config', 'jest.config.cjs']);
 
     const stdoutStream = fs.createWriteStream('test-output.txt');
@@ -56,12 +54,11 @@ export class TestCommand {
           if (testMatch && coverageMatch) {
             const passedTests = parseInt(testMatch[1]);
             const totalTests = parseInt(testMatch[2]);
-            const lineCoverage = parseFloat(coverageMatch[1]);
+            const lineCoverage = parseInt(coverageMatch[1]);
 
             const formattedOutput = `${passedTests}/${totalTests} test cases passed. ${lineCoverage}% line coverage achieved.`;
 
-            console.log(formattedOutput);
-            callback(null);
+            callback(null, formattedOutput);
           } else {
             callback('Error parsing test results or coverage information');
           }
