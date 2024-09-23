@@ -13,14 +13,14 @@ url_file_mode() {
         exit 1
     fi
     URL_FILE="$1"
-    echo "Processing URL file: $URL_FILE"
-    node src/dist/index.js URL_File $URL_FILE
+    node src/dist/index.js $URL_FILE
 }
 
 # Function to run the test mode
 test_mode() {
-    echo "Running tests..."
-    npm test
+    # echo "Running tests..."
+    node src/dist/index.js test
+    # npx jest --coverage
 }
 
 # Check the first argument
@@ -28,14 +28,10 @@ case "$1" in
   install)
     install_mode
     ;;
-  URL_File)
-    url_file_mode "$2"
-    ;;
   test)
     test_mode
     ;;
   *)
-    echo "Usage: $0 {install|URL_File|test}"
-    exit 1
+    url_file_mode "$1"
     ;;
 esac

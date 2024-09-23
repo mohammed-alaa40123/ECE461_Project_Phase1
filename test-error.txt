@@ -1,0 +1,10 @@
+PASS src/dist/tests/api.test.js
+PASS src/dist/tests/correctness.test.js
+PASS src/dist/tests/responsivness.test.js
+PASS src/dist/tests/RampUp.test.js (14.686 s)
+
+Test Suites: 4 passed, 4 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        15.119 s
+Ran all test suites.

@@ -1,76 +1,69 @@
-// // import * as fs from 'fs';
-// import { exec } from 'child_process';
-
-// export class TestCommand {
-//   public static run(): void {
-//     console.log('Running tests...');
-//     this.runTests((testError) => {
-//       if(testError) {
-//         console.error('Error running tests:', testError);
-//         return; 
-//       }
-//     });
-//   }
-
-//   private static runTests(callback: (error: string | null) => void): void {
-//     exec('npm test', (error, stdout, stderr) => {
-//       if (error) {
-//         return callback(`Error running tests: ${stderr}`);
-//       }
-//       console.log(`Test results: ${stdout}`);
-//       callback(null);
-//     });
-//   }
-
-
-// }
-
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 import * as fs from 'fs';
 
 export class TestCommand {
   public static run(): void {
     console.log('Running tests...');
-    this.runTests((testError, testResults) => {
+    this.runTests((testError) => {
       if (testError) {
         console.error('Error running tests:', testError);
-        return;
+        process.exit(1); // Exit with a non-zero status code to indicate failure
+      } else {
+        process.exit(0); // Exit with a zero status code to indicate success
       }
-      this.runCoverage((coverageError, coverageResults) => {
-        if (coverageError) {
-          console.error('Error running coverage:', coverageError);
-          return;
+    });
+  }
+
+  private static runTests(callback: (error: string | null) => void): void {
+    const testProcess = spawn('npx', ['jest', '--coverage', '--config', 'jest.config.cjs']);
+
+    const stdoutStream = fs.createWriteStream('test-output.txt');
+    const stderrStream = fs.createWriteStream('test-error.txt');
+
+    testProcess.stdout.pipe(stdoutStream);
+    testProcess.stderr.pipe(stderrStream);
+
+    testProcess.on('close', (code) => {
+      stdoutStream.close();
+      stderrStream.close();
+
+      if (code !== 0) {
+        return callback(`Test process exited with code ${code}`);
+      }
+
+      // Read the test results from the file
+      fs.readFile('test-error.txt', 'utf8', (err, testData) => {
+        if (err) {
+          return callback(`Error reading test results: ${err.message}`);
         }
-        this.printResults(testResults, coverageResults);
+
+        // Read the coverage information from the file
+        fs.readFile('test-output.txt', 'utf8', (err, coverageData) => {
+          if (err) {
+            return callback(`Error reading coverage information: ${err.message}`);
+          }
+
+          // Regular expressions to match the required patterns
+          const testPattern = /Tests:\s*(\d+)\s*passed,\s*(\d+)\s*total/;
+          const testMatch = testData.match(testPattern);
+
+          const coveragePattern = /All files\s*\|\s*\d+\.\d+\s*\|\s*\d+\.\d+\s*\|\s*\d+\.\d+\s*\|\s*(\d+\.\d+)/;
+          const coverageMatch = coverageData.match(coveragePattern);
+
+          if (testMatch && coverageMatch) {
+            const passedTests = parseInt(testMatch[1]);
+            const totalTests = parseInt(testMatch[2]);
+            const lineCoverage = parseFloat(coverageMatch[1]);
+
+            const formattedOutput = `${passedTests}/${totalTests} test cases passed. ${lineCoverage}% line coverage achieved.`;
+
+            console.log(formattedOutput);
+            callback(null);
+          } else {
+            callback('Error parsing test results or coverage information');
+          }
+        });
       });
     });
-  }
-
-  private static runTests(callback: (error: string | null, results?: any) => void): void {
-    exec('npm test -- --json --outputFile=test-results.json', (error, _, stderr) => {
-      if (error) {
-        return callback(`Error running tests: ${stderr}`);
-      }
-      const testResults = JSON.parse(fs.readFileSync('test-results.json', 'utf8'));
-      callback(null, testResults);
-    });
-  }
-
-  private static runCoverage(callback: (error: string | null, results?: any) => void): void {
-    exec('npm run coverage', (error, _, stderr) => {
-      if (error) {
-        return callback(`Error running coverage: ${stderr}`);
-      }
-      const coverageResults = JSON.parse(fs.readFileSync('coverage/coverage-final.json', 'utf8'));
-      callback(null, coverageResults);
-    });
-  }
-
-  private static printResults(testResults: any, coverageResults: any): void {
-    const totalTests = testResults.numTotalTests;
-    const passedTests = testResults.numPassedTests;
-    const coverage = coverageResults.total.lines.pct;
-
-    console.log(`${passedTests}/${totalTests} test cases passed. ${coverage}% line coverage achieved.`);
   }
 }
