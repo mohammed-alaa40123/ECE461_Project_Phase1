@@ -27,6 +27,7 @@ This is a Command-Line Interface (CLI) tool designed to process npm and GitHub r
 2. Install the required dependencies:
    ```bash
    npm install
+   tsc
    ```
 
 3. Create a `.env` file in the root directory with the following content:
