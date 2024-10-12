@@ -1,9 +1,9 @@
 import { NPM,GitHub } from "../api.js";
 
 const query = `
-  query($owner: String!, $name: String!, $after: String) {
+  query($owner: String!, $name: String!) {
     repository(owner: $owner, name: $name) {
-      pullRequests(first: 100, after: $after, orderBy: {field: CREATED_AT, direction: ASC}) {
+      pullRequests(first: 100,  orderBy: {field: CREATED_AT, direction: ASC}) {
         edges {
           node {
             createdAt
@@ -12,10 +12,7 @@ const query = `
             }
           }
         }
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
+        
       }
     }
   }
@@ -27,16 +24,16 @@ async function calculateAverageTimeForFirstPR(
 ): Promise<number> {
   const git_repo = new GitHub(owner, name);
 
-  let hasNextPage = true;
-  let endCursor = null;
+  
+
   const firstPRTimes: { [key: string]: number } = {};
 
   try {
-    while (hasNextPage) {
+    
       const data = await git_repo.getData(query, {
         owner,
         name,
-        after: endCursor,
+   
       });
 
       const pullRequests = data.data.repository.pullRequests.edges;
@@ -50,9 +47,7 @@ async function calculateAverageTimeForFirstPR(
         }
       });
 
-      hasNextPage = data.data.repository.pullRequests.pageInfo.hasNextPage;
-      endCursor = data.data.repository.pullRequests.pageInfo.endCursor;
-    }
+    
 
     const firstPRDates = Object.values(firstPRTimes);
     const least = Math.min(...firstPRDates);

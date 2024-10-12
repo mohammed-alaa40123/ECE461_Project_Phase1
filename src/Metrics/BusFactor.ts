@@ -1,11 +1,11 @@
 import { GitHub,NPM } from "../api.js";
 const query = `
-  query($owner: String!, $name: String!, $after: String) {
+  query($owner: String!, $name: String!) {
     repository(owner: $owner, name: $name) {
       defaultBranchRef {
         target {
           ... on Commit {
-            history(first: 100, after: $after) {
+            history(first: 100) {
               edges {
                 node {
                   author {
@@ -15,10 +15,7 @@ const query = `
                   }
                 }
               }
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
+           
             }
           }
         }
@@ -30,17 +27,16 @@ const query = `
 async function getCommitsByUser(owner: string, name: string):Promise<number> {
   const git_repo = new GitHub("graphql.js", "octokit");
 
-  let hasNextPage = true;
-  let endCursor = null;
+
   const userCommits: { [key: string]: number } = {};
   var busfactor: number = 0;
 
   try {
-    while (hasNextPage) {
+  
       const data = await git_repo.getData(query, {
         owner,
         name,
-        after: endCursor,
+      
       });
 
       const commits = data.data.repository.defaultBranchRef.target.history.edges;
@@ -55,11 +51,8 @@ async function getCommitsByUser(owner: string, name: string):Promise<number> {
         }
       });
 
-      hasNextPage =
-        data.data.repository.defaultBranchRef.target.history.pageInfo.hasNextPage;
-      endCursor =
-        data.data.repository.defaultBranchRef.target.history.pageInfo.endCursor;
-    }
+     
+    
     const commitnumbers: number[] = [];
 
     Object.entries(userCommits).forEach((commits) => {

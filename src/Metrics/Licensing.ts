@@ -85,7 +85,7 @@ async function checkLicenseCompatibility(
 ): Promise<number> {
   const url = `https://github.com/${owner}/${repo}`;
 
-  const dir = "/tmp/cloned-repo";
+  const dir = "./tmp/cloned-repo";
 
   await cloneRepository(url, dir);
   const licenseContent = await getLicense(dir);

@@ -25,12 +25,12 @@ async function processURLFile(file: string): Promise<void> {
           // console.log(`GitHub package: ${url}`);
           const [owner, repo] = url.split("github.com/")[1].split("/");
           const result = await calculateMetrics(owner, repo);
-          console.log(JSON.stringify(result) + "\n");
+          console.log(JSON.stringify(result) );
         } else if (url.includes("npmjs.com")) {
           // console.log(`npm package: ${url}`);
           const packageName = url.split('package/')[1];
           const result = await calculateMetrics(packageName);
-          console.log(JSON.stringify(result) + "\n");
+          console.log(JSON.stringify(result) );
         }
       } catch (error) {
         console.error(`Error processing URL ${url}:`, error);
